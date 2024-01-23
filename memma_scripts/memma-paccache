@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#---------------------------------------------------------------------------------------------------------------------
+# A little bash script to make cleaning the pacman cache easier :)
+#---------------------------------------------------------------------------------------------------------------------
+
+trap "echo; exit" INT
+
+#---------------------------------------------------------------------------------------------------------------------
+
+NOTRASH="*no candidate packages found for pruning*"
+
+echo -e "\e[1mLooking for old packages in cache...\e[0m"
+TRASH=$(paccache -dk1)
+echo $TRASH
+
+if [[ $TRASH != $NOTRASH ]]; then
+    echo -ne "\e[1m"
+    read -p "Remove old packages? [y/N] " -n 1 -r
+    echo -ne "\e[0m"
+    
+    [[ $REPLY != "" ]] && echo
+    
+    [[ $REPLY =~ ^[Yy]$ ]] && paccache -rvk1
+fi
+
+echo -e "\e[1mLooking for uninstalled packages in cache...\e[0m"
+TRASH=$(paccache -duk0)
+echo $TRASH
+
+if [[ $TRASH != $NOTRASH ]]; then
+    echo -ne "\e[1m"
+    read -p "Remove uninstalled packages? [y/N] " -n 1 -r
+    echo -ne "\e[0m"
+    
+    [[ $REPLY != "" ]] && echo
+    
+    [[ $REPLY =~ ^[Yy]$ ]] && paccache -rvuk0
+fi
+
+#---------------------------------------------------------------------------------------------------------------------
