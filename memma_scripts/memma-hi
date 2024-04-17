@@ -8,7 +8,7 @@ echo -e "\e[35m"
 
 cowsay $(misfortune)
 
-neofetch
+fastfetch
 
 echo -e "\e[35m"
 
