@@ -6,7 +6,7 @@
 
 echo -e "\e[35m"
 
-cowsay $(misfortune)
+misfortune | cowsay
 
 fastfetch
 
