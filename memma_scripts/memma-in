@@ -8,7 +8,19 @@ trap "echo; exit" INT
 
 #---------------------------------------------------------------------------------------------------------------------
 
-paru --upgrademenu --removemake --cleanafter $1
+package=$(paru -Ssq --interactive $1)
+
+echo -ne "\e[1m"
+read -p "Install $package as a dependency? [y/N] " -n 1 -r
+echo -ne "\e[0m"
+
+[[ $REPLY != "" ]] && echo
+
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    paru -S --asdeps --sudoloop --upgrademenu --removemake --cleanafter $package
+else
+    paru -S --sudoloop --upgrademenu --removemake --cleanafter $package
+fi
 
 memma-pacdiff
 
