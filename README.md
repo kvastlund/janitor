@@ -2,7 +2,9 @@
 A collection of personal scripts.
 
 ## Requirements
-Bash.
+Arch Linux base: https://archlinux.org/packages/core/any/base/
+
+
 
 ## Setup
 Run `scripts_to_path.sh` at startup.

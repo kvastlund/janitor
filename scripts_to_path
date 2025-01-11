@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Append script directories to PATH so the scripts can be called like commands
+
+memma_path="$HOME/Scripts/memma_scripts"
+if [[ ":$PATH:" != *":$memma_path:"* ]]; then
+    export PATH=${PATH}:$memma_path
+fi
