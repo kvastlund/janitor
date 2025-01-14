@@ -2,21 +2,20 @@
 A collection of personal scripts.
 
 ## Requirements
-Arch Linux base: https://archlinux.org/packages/core/any/base/
-pacman-contrib: https://archlinux.org/packages/extra/x86_64/pacman-contrib/
-misfortune: https://archlinux.org/packages/extra/x86_64/misfortune/
-cowsay: https://archlinux.org/packages/extra/any/cowsay/
-fastfetch: https://archlinux.org/packages/extra/x86_64/fastfetch/
-mpv: https://archlinux.org/packages/extra/x86_64/mpv/
-kdiff3: https://archlinux.org/packages/extra/x86_64/kdiff3/
-kde-cli-tools: https://archlinux.org/packages/extra/x86_64/kde-cli-tools/
-paru-git (or other paru): https://aur.archlinux.org/packages/paru-git
+Arch Linux base: https://archlinux.org/packages/core/any/base/\n
+pacman-contrib (for `memma[-clean/-in/-out/-up]`): https://archlinux.org/packages/extra/x86_64/pacman-contrib/\n
+misfortune (for `memma-hi`): https://archlinux.org/packages/extra/x86_64/misfortune/\n
+cowsay (for `memma-hi`): https://archlinux.org/packages/extra/any/cowsay/\n
+fastfetch (for `memma-hi`): https://archlinux.org/packages/extra/x86_64/fastfetch/\n
+mpv (for `memma-mpvwebcam`): https://archlinux.org/packages/extra/x86_64/mpv/\n
+kde-cli-tools (for `memma-rm`): https://archlinux.org/packages/extra/x86_64/kde-cli-tools/\n
+paru-git or other paru (for `memma[-clean/-hi/-in/-out/-up]`): https://aur.archlinux.org/packages/paru-git\n
 
 ## Setup
-Run `scripts_to_path.sh`. For example, add `. $HOME/Scripts/scripts_to_path` to '.bashrc'.
+Run `scripts_to_path.sh`. For example, add `. $HOME/Scripts/scripts_to_path` to `.bashrc`.
 
 ## Usage
-`list-scripts` - List all scripts in **Scripts** that are available on PATH.
+`memma` - List all scripts in **memma_scripts** that are available on `$PATH`.
 
 ## License
 [GPL3](LICENSE) © [kvastlund](https://github.com/kvastlund).

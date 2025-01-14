@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------
+# A little bash script to make cleaning up after pacman and paru easier :)
+#-------------------------------------------------------------------------------
+
+trap "echo; exit" INT
+
+#-------------------------------------------------------------------------------
+
+
+
+NOTRASH="*no trash to take out*"
+TRASH=$NOTRASH
+
+echo -e "\e[1mLooking for old packages in cache...\e[0m"
+TRASH=$(paccache -dk1)
+echo $TRASH
+
+if [[ $TRASH != $NOTRASH ]]; then
+    echo -ne "\e[1m"
+    read -p "Remove old packages? [y/N] " -n 1 -r
+    echo -ne "\e[0m"
+    
+    [[ $REPLY != "" ]] && echo
+    
+    [[ $REPLY =~ ^[Yy]$ ]] && paccache -rvk1
+fi
+
+echo -e "\e[1mLooking for orphans to throw out on the street...\e[0m"
+paru -c
+
+echo -e "\e[1mLooking for stragglers...\e[0m"
+paru -Scd
+
+#-------------------------------------------------------------------------------

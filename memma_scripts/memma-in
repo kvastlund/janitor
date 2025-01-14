@@ -1,14 +1,14 @@
 #!/bin/bash
 
-#---------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # A little bash script to make installing stuff easier :)
-#---------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 trap "echo; exit" INT
 
-#---------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
-package=$(paru -Ssq --interactive $1)
+package=$(paru -Ss --interactive --bottomup $1)
 
 if [[ $package != "" ]]; then
     echo -ne "\e[1m"
@@ -18,14 +18,12 @@ if [[ $package != "" ]]; then
     [[ $REPLY != "" ]] && echo
     
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        paru -S --asdeps --sudoloop --upgrademenu --removemake --cleanafter $package
+        paru -S --asdeps --sudoloop --upgrademenu --bottomup --removemake --cleanafter $package
     else
-        paru -S --sudoloop --upgrademenu --removemake --cleanafter $package
+        paru -S --sudoloop --upgrademenu --bottomup --removemake --cleanafter $package
     fi
     
-    memma-pacdiff
-    
-    memma-paccache
+    pacdiff -s
 fi
 
-#---------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
