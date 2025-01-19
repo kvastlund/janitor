@@ -1,5 +1,7 @@
 #!/bin/bash
 
+USER_SCRIPTS_PATH=$(dirname $(realpath $0))/user_scripts
+
 _help() {
     echo -e "\e[1mMaintenance and utility scripts.\e[0m"
     echo
@@ -39,34 +41,34 @@ while getopts ":hcui:o:r:-:" opt; do
     case $opt in
         h)  _help
             exit;;
-        c)  ./user_scripts/clean
+        c)  $USER_SCRIPTS_PATH/clean
             exit;;
-        u)  ./user_scripts/up
+        u)  $USER_SCRIPTS_PATH/up
             exit;;
-        i)  ./user_scripts/in ${@:2}
+        i)  $USER_SCRIPTS_PATH/in ${@:2}
             exit;;
-        o)  ./user_scripts/out ${@:2}
+        o)  $USER_SCRIPTS_PATH/out ${@:2}
             exit;;
-        r)  ./user_scripts/rm ${@:2}
+        r)  $USER_SCRIPTS_PATH/rm ${@:2}
             exit;;
         -)  case $OPTARG in
                 help)       _help
                             exit;;
-                clean)      ./user_scripts/clean
+                clean)      $USER_SCRIPTS_PATH/clean
                             exit;;
-                up)         ./user_scripts/up
+                up)         $USER_SCRIPTS_PATH/up
                             exit;;
-                in)         ./user_scripts/in ${@:2}
+                in)         $USER_SCRIPTS_PATH/in ${@:2}
                             exit;;
-                out)        ./user_scripts/out ${@:2}
+                out)        $USER_SCRIPTS_PATH/out ${@:2}
                             exit;;
-                rm)         ./user_scripts/rm ${@:2}
+                rm)         $USER_SCRIPTS_PATH/rm ${@:2}
                             exit;;
-                hi)         ./user_scripts/hi
+                hi)         $USER_SCRIPTS_PATH/hi
                             exit;;
-                mpvwebcam)  ./user_scripts/mpvwebcam
+                mpvwebcam)  $USER_SCRIPTS_PATH/mpvwebcam
                             exit;;
-                rewifi)     ./user_scripts/rewifi
+                rewifi)     $USER_SCRIPTS_PATH/rewifi
                             exit;;
                 *)          # Invalid option
                             echo "Error: Invalid option --$OPTARG"
