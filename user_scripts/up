@@ -18,7 +18,7 @@ paru -Syu --sudoloop --upgrademenu --bottomup --removemake --cleanafter
 
 pacdiff -s
 
-memma-clean
+./clean
 
 #------->Goodbye<---------------------------------------------------------------
 
