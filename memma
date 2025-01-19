@@ -46,7 +46,7 @@ _install() {
     sudo ln -s $(realpath $0) /usr/local/bin
 }
 _uninstall() {
-    sudo unlink /usr/local/bin/$0
+    sudo unlink /usr/local/bin/memma
 }
 
 while getopts ":hcui:o:r:-:" opt; do
