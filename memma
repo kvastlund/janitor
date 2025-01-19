@@ -32,9 +32,21 @@ _help() {
     echo -e "    \e[1m--rewifi\e[0m"
     echo "        Reload wifi driver module."
     echo
+    echo -e "    \e[1m--install\e[0m"
+    echo "        Create a symlink to this script called \e[3mmemma\e[0m in /usr/local/bin."
+    echo
+    echo -e "    \e[1m--uninstall\e[0m"
+    echo "        Remove a symlink to this script called \e[3mmemma\e[0m from /usr/local/bin."
+    echo
     echo -e "    \e[1m-h, --help\e[0m"
     echo "        Print this help."
     echo
+}
+_install() {
+    sudo ln -s $(realpath $0) /usr/local/bin
+}
+_uninstall() {
+    sudo unlink /usr/local/bin/$0
 }
 
 while getopts ":hcui:o:r:-:" opt; do
@@ -67,6 +79,10 @@ while getopts ":hcui:o:r:-:" opt; do
                 hi)         $USER_SCRIPTS_PATH/hi
                             exit;;
                 mpvwebcam)  $USER_SCRIPTS_PATH/mpvwebcam
+                            exit;;
+                install)    _install
+                            exit;;
+                uninstall)  _uninstall
                             exit;;
                 rewifi)     $USER_SCRIPTS_PATH/rewifi
                             exit;;
