@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------
+# A little bash script to make being greeted with a 'Good morning' or whatever
+# easier :)
+#-------------------------------------------------------------------------------
+
+echo -e "\e[35m"
+
+misfortune | cowsay
+
+paru -Ps
+
+fastfetch
+
+echo -e "\e[35m"
+
+systemd-analyze
+
+echo -e "\n::\e[1;4mSince $(awk -F "[[ ]" 'NR==1 {print $2;}' /var/log/pacman.log)\e[0;35m::\e[0m\n"
+
+#-------------------------------------------------------------------------------

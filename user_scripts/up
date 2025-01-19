@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------
+# A little bash script to make updating and upgrading the system easier :)
+#-------------------------------------------------------------------------------
+
+trap "echo; exit" INT
+
+#------->NEWS!<-----------------------------------------------------------------
+
+echo -e "\e[35m"
+paru -Pw
+echo -e "\e[0m"
+
+#------->update official and AUR<-----------------------------------------------
+
+paru -Syu --sudoloop --upgrademenu --bottomup --removemake --cleanafter
+
+pacdiff -s
+
+memma-clean
+
+#------->Goodbye<---------------------------------------------------------------
+
+echo -e "\n\e[1;35mThank you for upgrading me! See you soon i hope ;)\e[0m\n"
+
+#-------------------------------------------------------------------------------

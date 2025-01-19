@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------
+# A little bash script to make installing stuff easier :)
+#-------------------------------------------------------------------------------
+
+trap "echo; exit" INT
+
+#-------------------------------------------------------------------------------
+
+package=$(paru -Ss --interactive --bottomup $1)
+
+if [[ $package != "" ]]; then
+    echo -ne "\e[1m"
+    read -p "Install $package as a dependency? [y/N] " -n 1 -r
+    echo -ne "\e[0m"
+    
+    [[ $REPLY != "" ]] && echo
+    
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        paru -S --asdeps --sudoloop --upgrademenu --bottomup --removemake --cleanafter $package
+    else
+        paru -S --sudoloop --upgrademenu --bottomup --removemake --cleanafter $package
+    fi
+    
+    pacdiff -s
+fi
+
+#-------------------------------------------------------------------------------
