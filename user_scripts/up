@@ -18,7 +18,7 @@ paru -Syu --sudoloop --upgrademenu --bottomup --removemake --cleanafter
 
 pacdiff -s
 
-./clean
+$(dirname $0)/clean
 
 #------->Goodbye<---------------------------------------------------------------
 
