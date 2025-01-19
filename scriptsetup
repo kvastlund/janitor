@@ -2,4 +2,4 @@
 
 # Symlink memma to /usr/local/bin
 
-sudo ln -s $(realpath memma) /usr/local/bin
+sudo ln -s $(dirname $(realpath $0))/memma /usr/local/bin
