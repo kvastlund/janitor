@@ -8,7 +8,7 @@ _help() {
     echo -e "\e[1mSynopsis:\e[0m memma <operation> [target]"
     echo
     echo -e "\e[1mOperations:\e[0m"
-    echo -e "    \e[1m--hi\e[0m"
+    echo -e "    \e[1m<no operation>, --hi\e[0m"
     echo "        Display an informative greeting."
     echo
     echo -e "    \e[1m-u, --up\e[0m"
@@ -48,6 +48,11 @@ _install() {
 _uninstall() {
     sudo unlink /usr/local/bin/memma
 }
+
+if [ $# -eq 0 ]; then
+    $USER_SCRIPTS_PATH/hi
+    exit
+fi
 
 while getopts ":hcui:o:r:-:" opt; do
     case $opt in
