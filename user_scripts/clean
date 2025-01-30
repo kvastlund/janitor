@@ -8,24 +8,18 @@ trap "echo; exit" INT
 
 #-------------------------------------------------------------------------------
 
-
-
-NOTRASH="*no trash to take out*"
-TRASH=$NOTRASH
-
-echo
 echo -e "\e[1mLooking for old packages in cache...\e[0m"
-TRASH=$(paccache -dk1)
-echo $TRASH
+echo $(paccache -dk1)
+TRASH=$(paccache -dqk1)
 
-if [[ $TRASH != $NOTRASH ]]; then
+if [[ $TRASH != "" ]]; then
     echo -ne "\e[1m"
     read -p "Remove old packages? [y/N] " -n 1 -r
     echo -ne "\e[0m"
     
     [[ $REPLY != "" ]] && echo
     
-    [[ $REPLY =~ ^[Yy]$ ]] && paccache -rvk1
+    [[ $REPLY =~ ^[Yy]$ ]] && paccache -rqvk1 #idk
 fi
 
 echo
