@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USER_SCRIPTS_PATH=$(dirname $(realpath $0))/user_scripts
+SCRIPTS_PATH=$(dirname $(realpath $0))/utility_scripts
 
 _help() {
     echo -e "\e[1mMaintenance and utility scripts.\e[0m"
@@ -50,7 +50,7 @@ _uninstall() {
 }
 
 if [ $# -eq 0 ]; then
-    $USER_SCRIPTS_PATH/hi
+    $SCRIPTS_PATH/hi
     exit
 fi
 
@@ -58,38 +58,38 @@ while getopts ":hcui:o:r:-:" opt; do
     case $opt in
         h)  _help
             exit;;
-        c)  $USER_SCRIPTS_PATH/clean
+        c)  $SCRIPTS_PATH/clean
             exit;;
-        u)  $USER_SCRIPTS_PATH/up
+        u)  $SCRIPTS_PATH/up
             exit;;
-        i)  $USER_SCRIPTS_PATH/in ${@:2}
+        i)  $SCRIPTS_PATH/in ${@:2}
             exit;;
-        o)  $USER_SCRIPTS_PATH/out ${@:2}
+        o)  $SCRIPTS_PATH/out ${@:2}
             exit;;
-        r)  $USER_SCRIPTS_PATH/rm ${@:2}
+        r)  $SCRIPTS_PATH/rm ${@:2}
             exit;;
         -)  case $OPTARG in
                 help)       _help
                             exit;;
-                clean)      $USER_SCRIPTS_PATH/clean
+                clean)      $SCRIPTS_PATH/clean
                             exit;;
-                up)         $USER_SCRIPTS_PATH/up
+                up)         $SCRIPTS_PATH/up
                             exit;;
-                in)         $USER_SCRIPTS_PATH/in ${@:2}
+                in)         $SCRIPTS_PATH/in ${@:2}
                             exit;;
-                out)        $USER_SCRIPTS_PATH/out ${@:2}
+                out)        $SCRIPTS_PATH/out ${@:2}
                             exit;;
-                rm)         $USER_SCRIPTS_PATH/rm ${@:2}
+                rm)         $SCRIPTS_PATH/rm ${@:2}
                             exit;;
-                hi)         $USER_SCRIPTS_PATH/hi
+                hi)         $SCRIPTS_PATH/hi
                             exit;;
-                mpvwebcam)  $USER_SCRIPTS_PATH/mpvwebcam
+                mpvwebcam)  $SCRIPTS_PATH/mpvwebcam
                             exit;;
                 install)    _install
                             exit;;
                 uninstall)  _uninstall
                             exit;;
-                rewifi)     $USER_SCRIPTS_PATH/rewifi
+                rewifi)     $SCRIPTS_PATH/rewifi
                             exit;;
                 *)          # Invalid option
                             echo "Error: Invalid option --$OPTARG"
