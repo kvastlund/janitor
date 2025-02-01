@@ -1,5 +1,5 @@
 # Scripts
-A collection of personal scripts.
+A collection of utility scripts.
 
 ## Requirements
 Arch Linux base: [archlinux.org/packages/core/any/base](https://archlinux.org/packages/core/any/base/)\
@@ -12,7 +12,7 @@ kde-cli-tools (for `rm`): [archlinux.org/packages/extra/x86_64/kde-cli-tools](ht
 paru-git or other paru (for `clean`, `hi`, `in`, `out`, `up`): [aur.archlinux.org/packages/paru-git](https://aur.archlinux.org/packages/paru-git/)
 
 ## Setup
-Run `/path/to/memma --install`. This requires root privilege. This will create a symlink to `memma` in `/usr/local/bin`, which is assumed to be on your `$PATH`. Run `memma --uninstall` to remove the symlink.
+Run `/path/to/memma --install`. This requires `sudo` access. This will create a symlink to `memma` in `/usr/local/bin`, which is assumed to be on your `$PATH`. Run `memma --uninstall` to remove the symlink.
 
 ## Usage
 `memma -h` - Print help message containing available operations.
