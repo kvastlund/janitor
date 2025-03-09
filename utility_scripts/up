@@ -16,7 +16,7 @@ echo -e "\e[0m"
 
 paru -Syu --sudoloop --upgrademenu --bottomup --removemake --cleanafter
 
-pacdiff -s
+sudo -E pacdiff
 
 echo
 $(dirname $0)/clean
