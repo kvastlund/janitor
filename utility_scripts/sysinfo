@@ -1,16 +1,15 @@
 #!/bin/bash
 
 #-------------------------------------------------------------------------------
-# A little bash script to make being greeted with a 'Good morning' or whatever
-# easier :)
+# A little bash script to make viewing information about the system easier :)
 #-------------------------------------------------------------------------------
 
-echo -e "\e[35m"
+echo
 
-misfortune | cowsay
+fastfetch
 
-systemd-analyze
+paru -Ps
 
-echo -e "\n::\e[1;4mSince $(awk -F "[[ ]" 'NR==1 {print $2;}' /var/log/pacman.log)\e[0;35m::\e[0m\n"
+echo -e "\n\e[35m::\e[1;4mSince $(awk -F "[[ ]" 'NR==1 {print $2;}' /var/log/pacman.log)\e[0;35m::\e[0m\n"
 
 #-------------------------------------------------------------------------------
