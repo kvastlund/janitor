@@ -23,6 +23,6 @@ $(dirname $0)/clean
 
 #------->Goodbye<---------------------------------------------------------------
 
-echo -e "\n\e[1;35mThank you for upgrading me! See you soon i hope ;)\e[0m\n"
+echo -e "\n\e[1;35mThank you for upgrading me! See you soon I hope ;)\e[0m\n"
 
 #-------------------------------------------------------------------------------
