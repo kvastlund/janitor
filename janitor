@@ -76,7 +76,7 @@ while getopts ":hcui:o:r:-:" opt; do
                             exit;;
                 clean)      $SCRIPTS_PATH/clean
                             exit;;
-                up)         systemd-inhibit $SCRIPTS_PATH/up
+                up)         systemd-inhibit $SCRIPTS_PATH/up ${@:2}
                             exit;;
                 in)         systemd-inhibit $SCRIPTS_PATH/in ${@:2}
                             exit;;
