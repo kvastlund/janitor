@@ -22,8 +22,6 @@ if [[ $package != "" ]]; then
     else
         paru -S --sudoloop --upgrademenu --bottomup --removemake --cleanafter $package
     fi
-    
-    pacdiff -s
 fi
 
 #-------------------------------------------------------------------------------
