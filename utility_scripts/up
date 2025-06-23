@@ -14,7 +14,31 @@ echo -e "\e[0m"
 
 #------->update official and AUR<-----------------------------------------------
 
-paru -Syu --sudoloop --upgrademenu --bottomup --removemake --cleanafter
+_upgrade() {
+    paru -Syu --sudoloop --upgrademenu --bottomup --removemake --cleanafter
+}
+
+if [ $# -gt 0 ]; then
+    package=$(paru -Ss --interactive --bottomup $1)
+
+    if [[ $package != "" ]]; then
+        echo -ne "\e[1m"
+        read -p "Install $package as a dependency? [y/N] " -n 1 -r
+        echo -ne "\e[0m"
+
+        [[ $REPLY != "" ]] && echo
+
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            paru -Syu --asdeps --sudoloop --upgrademenu --bottomup --removemake --cleanafter $package
+        else
+            paru -Syu --sudoloop --upgrademenu --bottomup --removemake --cleanafter $package
+        fi
+    else
+        _upgrade
+    fi
+else
+    _upgrade
+fi
 
 sudo -E pacdiff
 
