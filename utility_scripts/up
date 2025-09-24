@@ -15,7 +15,7 @@ echo -e "\e[0m"
 #------->update official and AUR<-----------------------------------------------
 
 _upgrade() {
-    paru -Syu --sudoloop --upgrademenu --bottomup --removemake --cleanafter
+    paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter
 }
 
 if [ $# -gt 0 ]; then
@@ -29,9 +29,9 @@ if [ $# -gt 0 ]; then
         [[ $REPLY != "" ]] && echo
 
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            paru -Syu --asdeps --sudoloop --upgrademenu --bottomup --removemake --cleanafter $package
+            paru -Syu --asdeps --sudoloop --upgrademenu --bottomup --cleanafter $package
         else
-            paru -Syu --sudoloop --upgrademenu --bottomup --removemake --cleanafter $package
+            paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter $package
         fi
     else
         _upgrade
