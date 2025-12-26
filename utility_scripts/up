@@ -8,8 +8,11 @@ trap "echo; exit" INT
 
 #------->NEWS!<-----------------------------------------------------------------
 
+duration="10s"
+
 echo -e "\e[35m"
-paru -Pw
+timeout $duration paru -Pw
+if [ $? -eq 124 ]; then echo "'paru -Pw' timed out after $duration."; fi
 echo -e "\e[0m"
 
 #------->update official and AUR<-----------------------------------------------
