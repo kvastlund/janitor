@@ -9,15 +9,15 @@
 #done
 
 
-if [ -e $1 ]; then
-    kioclient move ${@:1} trash:/
+if [ -e "$1" ]; then
+    kioclient move "${@:1}" trash:/
     
-    [ -e $1 ] && echo -e "\n\e[35mEnter password to remove permanently...\e[0m\n"
+    [ -e "$1" ] && echo -e "\n\e[35mEnter password to remove permanently...\e[0m\n"
     
-    if [ -f $1 ]; then
-        sudo -k rm ${@:1}
-    elif [ -d $1 ]; then
-        sudo -k rm -r ${@:1}
+    if [ -f "$1" ]; then
+        sudo -k rm "${@:1}"
+    elif [ -d "$1" ]; then
+        sudo -k rm -r "${@:1}"
     fi
 else
     echo "idk wat u mean"

@@ -16,9 +16,9 @@ read -p "Try turning $modulename off and on again? [y/N] " -n 1 -r
 [[ $REPLY != "" ]] && echo
 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    sudo modprobe -r $modulename
+    sudo modprobe -r "$modulename"
     sleep 1
-    sudo modprobe $modulename
+    sudo modprobe "$modulename"
 fi
 
 #-------------------------------------------------------------------------------

@@ -8,7 +8,7 @@ trap "echo; exit" INT
 
 #-------------------------------------------------------------------------------
 
-package=$(paru -Ss --interactive --bottomup $1)
+package=$(paru -Ss --interactive --bottomup "$1")
 
 if [[ $package != "" ]]; then
     echo -ne "\e[1m"
@@ -18,9 +18,9 @@ if [[ $package != "" ]]; then
     [[ $REPLY != "" ]] && echo
     
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        paru -S --asdeps --sudoloop --upgrademenu --bottomup --cleanafter $package
+        paru -S --asdeps --sudoloop --upgrademenu --bottomup --cleanafter "$package"
     else
-        paru -S --sudoloop --upgrademenu --bottomup --cleanafter $package
+        paru -S --sudoloop --upgrademenu --bottomup --cleanafter "$package"
     fi
 fi
 

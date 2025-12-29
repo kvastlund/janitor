@@ -22,7 +22,7 @@ _upgrade() {
 }
 
 if [ $# -gt 0 ]; then
-    package=$(paru -Ss --interactive --bottomup $1)
+    package=$(paru -Ss --interactive --bottomup "$1")
 
     if [[ $package != "" ]]; then
         echo -ne "\e[1m"
@@ -32,9 +32,9 @@ if [ $# -gt 0 ]; then
         [[ $REPLY != "" ]] && echo
 
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            paru -Syu --asdeps --sudoloop --upgrademenu --bottomup --cleanafter $package
+            paru -Syu --asdeps --sudoloop --upgrademenu --bottomup --cleanafter "$package"
         else
-            paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter $package
+            paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter "$package"
         fi
     else
         _upgrade
@@ -46,7 +46,7 @@ fi
 sudo -E pacdiff
 
 echo
-$(dirname $0)/clean
+"$(dirname "$0")"/clean
 
 #------->Goodbye<---------------------------------------------------------------
 
