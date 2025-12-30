@@ -4,7 +4,7 @@
 # A little bash script to make cleaning up after pacman and paru easier :)
 #-------------------------------------------------------------------------------
 
-trap "echo; exit" INT
+trap 'echo -e "\e[0m"; exit' INT
 
 #-------------------------------------------------------------------------------
 
