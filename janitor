@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPTS_PATH=$(dirname $(realpath $0))/utility_scripts
+SCRIPTS_PATH=$(dirname "$(realpath "$0")")/utility_scripts
 
 _help() {
     echo -e "\e[1mMaintenance and utility scripts.\e[0m"
@@ -46,14 +46,14 @@ _help() {
     echo
 }
 _install() {
-    sudo ln -s $(realpath $0) /usr/local/bin
+    sudo ln -s "$(realpath "$0")" /usr/local/bin
 }
 _uninstall() {
     sudo unlink /usr/local/bin/janitor
 }
 
 if [ $# -eq 0 ]; then
-    $SCRIPTS_PATH/hi
+    "$SCRIPTS_PATH"/hi
     exit
 fi
 
@@ -61,40 +61,40 @@ while getopts ":hcui:o:r:-:" opt; do
     case $opt in
         h)  _help
             exit;;
-        c)  $SCRIPTS_PATH/clean
+        c)  "$SCRIPTS_PATH"/clean
             exit;;
-        u)  systemd-inhibit $SCRIPTS_PATH/up
+        u)  systemd-inhibit "$SCRIPTS_PATH"/up
             exit;;
-        i)  systemd-inhibit $SCRIPTS_PATH/in ${@:2}
+        i)  systemd-inhibit "$SCRIPTS_PATH"/in "${@:2}"
             exit;;
-        o)  $SCRIPTS_PATH/out ${@:2}
+        o)  "$SCRIPTS_PATH"/out "${@:2}"
             exit;;
-        r)  $SCRIPTS_PATH/rm ${@:2}
+        r)  "$SCRIPTS_PATH"/rm "${@:2}"
             exit;;
         -)  case $OPTARG in
                 help)       _help
                             exit;;
-                clean)      $SCRIPTS_PATH/clean
+                clean)      "$SCRIPTS_PATH"/clean
                             exit;;
-                up)         systemd-inhibit $SCRIPTS_PATH/up ${@:2}
+                up)         systemd-inhibit "$SCRIPTS_PATH"/up "${@:2}"
                             exit;;
-                in)         systemd-inhibit $SCRIPTS_PATH/in ${@:2}
+                in)         systemd-inhibit "$SCRIPTS_PATH"/in "${@:2}"
                             exit;;
-                out)        $SCRIPTS_PATH/out ${@:2}
+                out)        "$SCRIPTS_PATH"/out "${@:2}"
                             exit;;
-                rm)         $SCRIPTS_PATH/rm ${@:2}
+                rm)         "$SCRIPTS_PATH"/rm "${@:2}"
                             exit;;
-                hi)         $SCRIPTS_PATH/hi
+                hi)         "$SCRIPTS_PATH"/hi
                             exit;;
-                mpvwebcam)  $SCRIPTS_PATH/mpvwebcam
+                mpvwebcam)  "$SCRIPTS_PATH"/mpvwebcam
                             exit;;
-                sysinfo)    $SCRIPTS_PATH/sysinfo
+                sysinfo)    "$SCRIPTS_PATH"/sysinfo
                             exit;;
                 install)    _install
                             exit;;
                 uninstall)  _uninstall
                             exit;;
-                rewifi)     $SCRIPTS_PATH/rewifi
+                rewifi)     "$SCRIPTS_PATH"/rewifi
                             exit;;
                 *)          # Invalid option
                             echo "Error: Invalid option --$OPTARG"
