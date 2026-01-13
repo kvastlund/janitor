@@ -8,14 +8,17 @@ trap 'echo -e "\e[0m"; exit' INT
 
 #-------------------------------------------------------------------------------
 
-package=$(paru -Ss --interactive --bottomup "$1")
+package=$(paru -Ss --interactive --bottomup "$1" | tee /dev/stderr | sed -n \$p | rev | cut -d ' ' -f 1 | rev)
 
-if [[ $package != "" ]]; then
-    echo -ne "\e[1m"
-    read -p "Install $package as a dependency? [y/N] " -n 1 -r
-    echo -ne "\e[0m"
-    
-    [[ $REPLY != "" ]] && echo
+if [[ ($package != "") && ($package != "do") ]]; then
+    while true; do
+        echo -ne "\e[1m"
+        read -p "Install $package as a dependency? [y/N] " -n 1 -r
+        echo -ne "\e[0m"
+        [[ $REPLY == "" ]] && break
+        echo
+        [[ ($REPLY =~ ^[Yy]$) || ($REPLY =~ ^[Nn]$) ]] && break
+    done
     
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         paru -S --asdeps --sudoloop --upgrademenu --bottomup --cleanafter "$package"
