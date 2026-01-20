@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------
+# A little bash script to make management of a desktop file for kioclient,
+# which shouldn't be needed if the bug was fixed properly, easier :)
+#-------------------------------------------------------------------------------
+
+PATCH_NAME=org.kde..desktop
+PATCH_SOURCE=$(dirname "$(realpath "$0")")/$PATCH_NAME
+PATCH_TARGET=/usr/share/applications
+
+if [[ $1 == "apply" ]]; then
+    sudo ln -s "$PATCH_SOURCE" $PATCH_TARGET
+elif [[ $1 == "remove" ]]; then
+    sudo unlink $PATCH_TARGET/$PATCH_NAME
+else
+    echo -e "\e[91;1mError:\e[22m Invalid operation $1\e[0m"
+    exit 1
+fi
+
+#-------------------------------------------------------------------------------

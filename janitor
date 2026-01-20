@@ -41,6 +41,15 @@ _help() {
     echo -e "    \e[1m--uninstall\e[0m"
     echo -e "        Remove a symlink to this script called \e[3mjanitor\e[0m from /usr/local/bin."
     echo
+    echo -e "    \e[1m--patches\e[0m"
+    echo -e "        List available patches."
+    echo
+    echo -e "    \e[1m--patch\e[0m <patch>"
+    echo -e "        Apply a patch."
+    echo
+    echo -e "    \e[1m--unpatch\e[0m <patch>"
+    echo -e "        Remove a patch."
+    echo
     echo -e "    \e[1m-h, --help\e[0m"
     echo "        Print this help."
     echo
@@ -94,14 +103,20 @@ while getopts ":hcui:o:r:-:" opt; do
                             exit;;
                 uninstall)  _uninstall
                             exit;;
+                patches)    "$SCRIPTS_PATH"/patch list
+                            exit;;
+                patch)      "$SCRIPTS_PATH"/patch apply "${@:2}"
+                            exit;;
+                unpatch)    "$SCRIPTS_PATH"/patch remove "${@:2}"
+                            exit;;
                 rewifi)     "$SCRIPTS_PATH"/rewifi
                             exit;;
                 *)          # Invalid option
-                            echo "Error: Invalid option --$OPTARG"
+                            echo -e "\e[91;1mError:\e[22m Invalid option --$OPTARG\e[0m"
                             exit 1;;
             esac;;
         \?) # Invalid option
-            echo "Error: Invalid option -$OPTARG"
+            echo -e "\e[91;1mError:\e[22m Invalid option -$OPTARG\e[0m"
             exit 1;;
     esac
 done

@@ -4,23 +4,24 @@
 # A little bash script to make removing stuff safely easier :)
 #-------------------------------------------------------------------------------
 
-#for path in ${@:1}; do
-#    if [ -e $path ]
-#done
+trap 'echo -e "\e[0m"; exit' INT
 
+#-------------------------------------------------------------------------------
 
-if [ -e "$1" ]; then
-    kioclient move "${@:1}" trash:/
-    
-    [ -e "$1" ] && echo -e "\n\e[35mEnter password to remove permanently...\e[0m\n"
-    
-    if [ -f "$1" ]; then
-        sudo -k rm "${@:1}"
-    elif [ -d "$1" ]; then
-        sudo -k rm -r "${@:1}"
+for path in "${@:1}"; do
+    if [ -w "$path" ]; then
+        nosudos+=("$path")
+    else
+        yessudos+=("$path")
     fi
-else
-    echo "idk wat u mean"
+done
+
+if [ ${#nosudos[@]} -ne 0 ]; then
+    kioclient move "${nosudos[@]}" trash:/
+fi
+
+if [ ${#yessudos[@]} -ne 0 ]; then
+    kioclient move "${yessudos[@]}" trash:/
 fi
 
 #-------------------------------------------------------------------------------
