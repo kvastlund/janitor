@@ -11,6 +11,10 @@ trap 'echo -e "\e[0m"; exit' INT
 package=$(paru -Ss --interactive --bottomup "$1" | tee /dev/stderr | sed -n \$p | rev | cut -d ' ' -f 1 | rev)
 
 if [[ ($package != "") && ($package != "do") ]]; then
+    echo
+    "$(dirname "$0")"/mirlisttime
+    echo
+
     while true; do
         echo -ne "\e[1m"
         read -p "Install $package as a dependency? [y/N] " -n 1 -r
