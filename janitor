@@ -38,6 +38,9 @@ _help() {
     echo -e "    \e[1m--mirlisttime\e[0m"
     echo "        Display when the current mirrorlist was retrieved."
     echo
+    echo -e "            \e[1m-n\e[0m      Display an empty line before and after the message if there"
+    echo "                    is one."
+    echo
     echo -e "    \e[1m--install\e[0m"
     echo -e "        Create a symlink to this script called \e[3mjanitor\e[0m in /usr/local/bin."
     echo
@@ -57,9 +60,11 @@ _help() {
     echo "        Print this help."
     echo
 }
+
 _install() {
     sudo ln -s "$(realpath "$0")" /usr/local/bin
 }
+
 _uninstall() {
     sudo unlink /usr/local/bin/janitor
 }

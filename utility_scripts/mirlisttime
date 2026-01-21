@@ -7,6 +7,10 @@
 
 RETRIEVED_TIME=$(pacman -v 2> /dev/null | grep 'Conf File' | cut -d ' ' -f 4 | xargs cat | grep '\[core\]' -A 1 | grep 'Include' | cut -d ' ' -f 3 | xargs cat | grep 'Retrieved' | cut -d ' ' -f 4,5,6)
 
-[[ $RETRIEVED_TIME != "" ]] && echo "The current mirrorlist was retrieved at $RETRIEVED_TIME."
+if [[ $RETRIEVED_TIME != "" ]]; then
+    [[ $1 == "-n" ]] && echo
+    echo "The current mirrorlist was retrieved at $RETRIEVED_TIME."
+    [[ $1 == "-n" ]] && echo
+fi
 
 #-------------------------------------------------------------------------------
