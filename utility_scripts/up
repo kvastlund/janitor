@@ -21,9 +21,7 @@ if [ $# -gt 0 ]; then
     package=$(paru -Ss --interactive --bottomup "$1" | tee /dev/stderr | sed -n \$p | rev | cut -d ' ' -f 1 | rev)
 
     if [[ ($package != "") && ($package != "do") ]]; then
-        echo
-        "$(dirname "$0")"/mirlisttime
-        echo
+        "$(dirname "$0")"/mirlisttime -n
 
         while true; do
             echo -ne "\e[1m"
