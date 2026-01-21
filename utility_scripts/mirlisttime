@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------
+# A little bash script to make viewing when the mirrorlist was retrieved
+# easier :)
+#-------------------------------------------------------------------------------
+
+echo "The current mirrorlist was retrieved at $(cat /etc/pacman.d/mirrorlist | grep Retrieved | rev | cut -d ' ' -f 1,2,3 | rev)."
+
+#-------------------------------------------------------------------------------

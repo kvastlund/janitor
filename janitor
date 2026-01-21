@@ -35,6 +35,9 @@ _help() {
     echo -e "    \e[1m--sysinfo\e[0m"
     echo "        Display system information."
     echo
+    echo -e "    \e[1m--mirlisttime\e[0m"
+    echo "        Display when the current mirrorlist was retrieved."
+    echo
     echo -e "    \e[1m--install\e[0m"
     echo -e "        Create a symlink to this script called \e[3mjanitor\e[0m in /usr/local/bin."
     echo
@@ -98,6 +101,8 @@ while getopts ":hcui:o:r:-:" opt; do
                 mpvwebcam)  "$SCRIPTS_PATH"/mpvwebcam
                             exit;;
                 sysinfo)    "$SCRIPTS_PATH"/sysinfo
+                            exit;;
+                mirlisttime)    "$SCRIPTS_PATH"/mirlisttime
                             exit;;
                 install)    _install
                             exit;;
