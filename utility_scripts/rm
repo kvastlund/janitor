@@ -21,7 +21,7 @@ if [ ${#nosudos[@]} -ne 0 ]; then
 fi
 
 if [ ${#yessudos[@]} -ne 0 ]; then
-    kioclient move "${yessudos[@]}" trash:/
+    sudo -k kioclient move "${yessudos[@]}" trash:/
 fi
 
 #-------------------------------------------------------------------------------
