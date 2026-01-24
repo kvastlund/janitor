@@ -8,25 +8,72 @@ trap 'echo -e "\e[0m"; exit' INT
 
 #-------------------------------------------------------------------------------
 
-package=$(paru -Ss --interactive --bottomup "$1" | tee /dev/stderr | sed -n \$p | rev | cut -d ' ' -f 1 | rev)
+# Choose packages
+for query in "${@:1}"; do
+    queryoutput=$(paru -Ss --interactive --bottomup --color always "$query" | tee /dev/stderr | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
 
-if [[ ($package != "") && ($package != "do") ]]; then
-    "$(dirname "$0")"/mirlisttime -n
+    pkgsstring=$(echo "${queryoutput##*:}" | xargs)
 
-    while true; do
-        echo -ne "\e[1m"
-        read -p "Install $package as a dependency? [y/N] " -n 1 -r
-        echo -ne "\e[0m"
-        [[ $REPLY == "" ]] && break
-        echo
-        [[ ($REPLY =~ ^[Yy]$) || ($REPLY =~ ^[Nn]$) ]] && break
-    done
-    
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        paru -S --asdeps --sudoloop --upgrademenu --bottomup --cleanafter "$package"
-    else
-        paru -S --sudoloop --upgrademenu --bottomup --cleanafter "$package"
+    pkgsarray=("$pkgsstring")
+
+    if [[ ($pkgsstring != "") && ($pkgsstring != "there is nothing to do") ]]; then
+        # Choose dependencies
+        for pkg in $pkgsarray; do
+            while true; do
+                echo -ne "\e[1m"
+                read -p "Install $pkg as a dependency? [y/N] " -n 1 -r
+                echo -ne "\e[0m"
+
+                [[ $REPLY == "" ]] && break
+                echo
+                [[ ($REPLY =~ ^[Yy]$) || ($REPLY =~ ^[Nn]$) ]] && break
+            done
+
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                dependencies+=("$pkg")
+            elif [[ ($REPLY == "") || ($REPLY =~ ^[Nn]$) ]]; then
+                explicits+=("$pkg")
+            fi
+        done
     fi
+done
+
+"$(dirname "$0")"/mirlisttime -n
+
+# Download and install
+if [ ${#dependencies[@]} -ne 0 ]; then
+    echo
+    echo -e "\e[1;4;35mDependencies\e[0m"
+    paru -S --asdeps --sudoloop --upgrademenu --bottomup --cleanafter ${dependencies[@]}
 fi
 
+if [ ${#explicits[@]} -ne 0 ]; then
+    echo
+    echo -e "\e[1;4;35mExplicits\e[0m"
+    paru -S --sudoloop --upgrademenu --bottomup --cleanafter ${explicits[@]}
+fi
+
+exit 0
+
 #-------------------------------------------------------------------------------
+
+# package=$(paru -Ss --interactive --bottomup "$1" | tee /dev/stderr | sed -n \$p | rev | cut -d ' ' -f 1 | rev)
+#
+# if [[ ($package != "") && ($package != "do") ]]; then
+#     "$(dirname "$0")"/mirlisttime -n
+#
+#     while true; do
+#         echo -ne "\e[1m"
+#         read -p "Install $package as a dependency? [y/N] " -n 1 -r
+#         echo -ne "\e[0m"
+#         [[ $REPLY == "" ]] && break
+#         echo
+#         [[ ($REPLY =~ ^[Yy]$) || ($REPLY =~ ^[Nn]$) ]] && break
+#     done
+#
+#     if [[ $REPLY =~ ^[Yy]$ ]]; then
+#         paru -S --asdeps --sudoloop --upgrademenu --bottomup --cleanafter "$package"
+#     else
+#         paru -S --sudoloop --upgrademenu --bottomup --cleanafter "$package"
+#     fi
+# fi
