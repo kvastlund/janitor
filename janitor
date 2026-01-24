@@ -75,7 +75,7 @@ if [ $# -eq 0 ]; then
     exit
 fi
 
-while getopts ":hcui:o:r:-:" opt; do
+while getopts ":hcu:i:r:x:-:" opt; do
     case $opt in
         h)  _help
             exit;;
