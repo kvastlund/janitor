@@ -1,7 +1,12 @@
 #!/bin/bash
 
-#TODO: Make man page!
-help_string=$'
+#-------------------------------------------------------------------------------
+# A little bash script to make janitorial duties easier :)
+#-------------------------------------------------------------------------------
+# TODO: Make man page!
+#------> CONSTANTS <------------------------------------------------------------
+
+readonly HELP_STRING=$'
 \e[1mUsage:\e[0m
     janitor
     janitor <operation>
@@ -67,10 +72,13 @@ help_string=$'
         Reload wifi driver module.
 '
 
-scripts_path=$(dirname "$(realpath "$0")")/utility_scripts
+SCRIPTS_PATH=$(dirname "$(realpath "${BASH_SOURCE[0]}")")/scripts
+readonly SCRIPTS_PATH
+
+#------> FUNCTIONS <------------------------------------------------------------
 
 _install() {
-    sudo ln -s "$(realpath "$0")" /usr/local/bin
+    sudo ln -s "$(realpath "${BASH_SOURCE[0]}")" /usr/local/bin
 }
 
 _uninstall() {
@@ -82,64 +90,68 @@ _opt_error() {
     echo "Try 'janitor --help' for more information."
 }
 
+#------> GO! <------------------------------------------------------------------
+
 if [ $# -eq 0 ]; then
-    "$scripts_path"/greet
+    "$SCRIPTS_PATH"/greet
     exit
 fi
 
 while getopts ":hcui:r:x:-:" opt; do
     case $opt in
-        h)  echo "$help_string"
+        h)  echo "$HELP_STRING"
             exit;;
-        c)  "$scripts_path"/clean
+        c)  "$SCRIPTS_PATH"/clean
             exit;;
-        u)  systemd-inhibit "$scripts_path"/upgrade "${@:2}"
+        u)  systemd-inhibit "$SCRIPTS_PATH"/upgrade "${@:2}"
             exit;;
-        i)  systemd-inhibit "$scripts_path"/installpkg "${@:2}"
+        i)  systemd-inhibit "$SCRIPTS_PATH"/installpkg "${@:2}"
             exit;;
-        r)  "$scripts_path"/removepkg "${@:2}"
+        r)  "$SCRIPTS_PATH"/removepkg "${@:2}"
             exit;;
-        x)  "$scripts_path"/expel "${@:2}"
+        x)  "$SCRIPTS_PATH"/expel "${@:2}"
             exit;;
         -)  case $OPTARG in
-                help)       echo "$help_string"
+                help)       echo "$HELP_STRING"
                             exit;;
-                clean)      "$scripts_path"/clean
+                clean)      "$SCRIPTS_PATH"/clean
                             exit;;
-                upgrade)    systemd-inhibit "$scripts_path"/upgrade "${@:2}"
+                upgrade)    systemd-inhibit "$SCRIPTS_PATH"/upgrade "${@:2}"
                             exit;;
-                installpkg) systemd-inhibit "$scripts_path"/installpkg "${@:2}"
+                installpkg) systemd-inhibit "$SCRIPTS_PATH"/installpkg "${@:2}"
                             exit;;
-                removepkg)  "$scripts_path"/removepkg "${@:2}"
+                removepkg)  "$SCRIPTS_PATH"/removepkg "${@:2}"
                             exit;;
-                expel)      "$scripts_path"/expel "${@:2}"
+                expel)      "$SCRIPTS_PATH"/expel "${@:2}"
                             exit;;
-                greet)      "$scripts_path"/greet
+                greet)      "$SCRIPTS_PATH"/greet
                             exit;;
-                mpvwebcam)  "$scripts_path"/mpvwebcam
+                mpvwebcam)  "$SCRIPTS_PATH"/mpvwebcam
                             exit;;
-                sysinfo)    "$scripts_path"/sysinfo
+                sysinfo)    "$SCRIPTS_PATH"/sysinfo
                             exit;;
-                mirtime)    "$scripts_path"/mirtime $2
+                mirtime)    "$SCRIPTS_PATH"/mirtime "$2"
                             exit;;
                 install)    _install
                             exit;;
                 uninstall)  _uninstall
                             exit;;
-                patches)    "$scripts_path"/patch list
+                patches)    "$SCRIPTS_PATH"/patch list
                             exit;;
-                patch)      "$scripts_path"/patch apply "${@:2}"
+                patch)      "$SCRIPTS_PATH"/patch apply "${@:2}"
                             exit;;
-                unpatch)    "$scripts_path"/patch remove "${@:2}"
+                unpatch)    "$SCRIPTS_PATH"/patch remove "${@:2}"
                             exit;;
-                rewifi)     "$scripts_path"/rewifi
+                rewifi)     "$SCRIPTS_PATH"/rewifi
                             exit;;
                 *)          # Invalid option
-                            _opt_error $OPTARG "-"
+                            _opt_error "$OPTARG" "-"
                             exit 1;;
             esac;;
         \?) # Invalid option
-            _opt_error $OPTARG
+            _opt_error "$OPTARG"
             exit 1;;
     esac
 done
+
+#-------------------------------------------------------------------------------

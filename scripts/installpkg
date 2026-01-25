@@ -1,21 +1,17 @@
 #!/bin/bash
 
 #-------------------------------------------------------------------------------
-# A little bash script to make updating and upgrading the system easier :)
+# A little bash script to make installing stuff easier :)
 #-------------------------------------------------------------------------------
 
 trap 'echo -e "\e[0m"; exit' INT
 
-#------->NEWS!<-----------------------------------------------------------------
+#------> CONSTANTS <------------------------------------------------------------
 
-duration="10s"
+SCRIPTS_PATH=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
+readonly SCRIPTS_PATH
 
-echo -e "\e[35m"
-timeout $duration paru -Pw
-if [ $? -eq 124 ]; then echo "'paru -Pw' timed out after $duration."; fi
-echo -e "\e[0m"
-
-#------->update official and AUR<-----------------------------------------------
+#------> DO THE THING! <--------------------------------------------------------
 
 # TODO: Put the choosing in a separate script
 # Choose packages
@@ -31,6 +27,7 @@ done
 echo
 
 # Choose dependencies
+# shellcheck disable=SC2068
 for pkg in ${packages[@]}; do
     while true; do
         echo -ne "\e[1m"
@@ -43,26 +40,22 @@ for pkg in ${packages[@]}; do
     done
 
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        dependencies+=("$(echo $pkg | cut -d '/' -f 2)")
+        dependencies+=("$(echo "$pkg" | cut -d '/' -f 2)")
     fi
 done
 
-"$(dirname "$0")"/mirtime -n
+"$SCRIPTS_PATH"/mirtime -n
 
 # Download and install
-paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter ${packages[@]}
+if [ ${#packages[@]} -ne 0 ]; then
+    # shellcheck disable=SC2068
+    paru -S --sudoloop --upgrademenu --bottomup --cleanafter ${packages[@]}
+fi
 
 # Set dependencies
+# shellcheck disable=SC2068
 [ ${#dependencies[@]} -ne 0 ] && paru -D --asdeps ${dependencies[@]}
 
-# Sort out the rest
-sudo -E pacdiff
-echo
-"$(dirname "$0")"/clean
-
-#------->Goodbye<---------------------------------------------------------------
-
-echo -e "\n\e[1;35mThank you for upgrading me! See you soon i hope :)\e[0m\n"
 exit 0
 
 #-------------------------------------------------------------------------------
