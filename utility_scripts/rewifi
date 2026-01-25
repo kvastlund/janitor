@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#DEPRECATED
+
 #-------------------------------------------------------------------------------
 # A little bash script to make unloading and reloading the wifi driver module
 # easier :)

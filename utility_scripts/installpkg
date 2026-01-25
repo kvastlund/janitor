@@ -38,7 +38,7 @@ for pkg in ${packages[@]}; do
     fi
 done
 
-"$(dirname "$0")"/mirlisttime -n
+"$(dirname "$0")"/mirtime -n
 
 # Download and install
 if [ ${#packages[@]} -ne 0 ]; then

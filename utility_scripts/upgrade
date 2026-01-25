@@ -47,7 +47,7 @@ for pkg in ${packages[@]}; do
     fi
 done
 
-"$(dirname "$0")"/mirlisttime -n
+"$(dirname "$0")"/mirtime -n
 
 # Download and install
 paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter ${packages[@]}
