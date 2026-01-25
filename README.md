@@ -33,7 +33,11 @@ janitor -h
 ```
 
 ## Fetchlings
-<embed src="./scripts/sysinfo">
+<iframe
+    src="scripts/sysinfo"
+    width="100%"
+    height="200px"
+></iframe>
 
 ## License
 [GPL3](LICENSE) © [kvastlund](https://github.com/kvastlund).
