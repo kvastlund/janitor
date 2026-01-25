@@ -17,40 +17,52 @@ echo -e "\e[0m"
 
 #------->update official and AUR<-----------------------------------------------
 
-if [ $# -gt 0 ]; then
-    package=$(paru -Ss --interactive --bottomup "$1" | tee /dev/stderr | sed -n \$p | rev | cut -d ' ' -f 1 | rev)
+# TODO: Put the choosing in a separate script
+# Choose packages
+for query in "${@:1}"; do
+    queryoutput=$(paru -Ss --interactive --bottomup --color always "$query" | tee /dev/stderr | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
 
-    if [[ ($package != "") && ($package != "do") ]]; then
-        "$(dirname "$0")"/mirlisttime -n
+    pkgsstring=$(echo "${queryoutput##*:}" | xargs)
 
-        while true; do
-            echo -ne "\e[1m"
-            read -p "Install $package as a dependency? [y/N] " -n 1 -r
-            echo -ne "\e[0m"
-            [[ $REPLY == "" ]] && break
-            echo
-            [[ ($REPLY =~ ^[Yy]$) || ($REPLY =~ ^[Nn]$) ]] && break
-        done
-
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            paru -Syu --asdeps --sudoloop --upgrademenu --bottomup --cleanafter "$package"
-        else
-            paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter "$package"
-        fi
-    else
-        paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter
+    if [[ ($pkgsstring != "") && ($pkgsstring != "there is nothing to do") ]]; then
+        packages+=("$pkgsstring")
     fi
-else
-    paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter
-fi
+done
+echo
 
+# Choose dependencies
+for pkg in ${packages[@]}; do
+    while true; do
+        echo -ne "\e[1m"
+        read -p "Install $pkg as a dependency? [y/N] " -n 1 -r
+        echo -ne "\e[0m"
+
+        [[ $REPLY == "" ]] && break
+        echo
+        [[ ($REPLY =~ ^[Yy]$) || ($REPLY =~ ^[Nn]$) ]] && break
+    done
+
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        dependencies+=("$(echo $pkg | cut -d '/' -f 2)")
+    fi
+done
+
+"$(dirname "$0")"/mirlisttime -n
+
+# Download and install
+paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter ${packages[@]}
+
+# Set dependencies
+[ ${#dependencies[@]} -ne 0 ] && paru -D --asdeps ${dependencies[@]}
+
+# Sort out the rest
 sudo -E pacdiff
-
 echo
 "$(dirname "$0")"/clean
 
 #------->Goodbye<---------------------------------------------------------------
 
 echo -e "\n\e[1;35mThank you for upgrading me! See you soon i hope :)\e[0m\n"
+exit 0
 
 #-------------------------------------------------------------------------------
