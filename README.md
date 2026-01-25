@@ -12,10 +12,23 @@ kde-cli-tools (for `expel`): [archlinux.org/packages/extra/x86_64/kde-cli-tools]
 paru (for `clean`, `installpkg`, `removepkg`, `upgrade`, `sysinfo`): [aur.archlinux.org/packages/paru-git](https://aur.archlinux.org/packages/paru-git/)
 
 ## Setup
-Run `/path/to/janitor --install`. This requires `sudo` access. This will create a symlink to `janitor` in `/usr/local/bin`, which is assumed to be on your `$PATH`. Run `janitor --uninstall` to remove the symlink.
+Install:
+```bash
+/path/to/janitor --install
+```
+This requires `sudo` access. This will create a symlink to `janitor` in `/usr/local/bin`, which is assumed to be on your `$PATH`.
+
+Uninstall:
+```bash
+janitor --uninstall
+```
+This requires `sudo` access. This will remove the symlink that was created during installation.
 
 ## Usage
-`janitor -h` - Print help message containing available operations.
+Display help message containing available operations:
+```bash
+janitor -h
+```
 
 ## License
 [GPL3](LICENSE) © [kvastlund](https://github.com/kvastlund).

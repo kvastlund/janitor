@@ -7,6 +7,7 @@
 
 echo -e "\e[35m"
 
+# TODO: Make misfortune and cowsay optional.
 misfortune | cowsay
 
 systemd-analyze
