@@ -2,11 +2,12 @@
 
 #TODO: Make man page!
 help_string=$'
-\e[1;4mMaintenance and utility scripts\e[0m
+\e[1mUsage:\e[0m
+    janitor
+    janitor <operation>
+    janitor <operation> [...]
 
-\e[1mSynopsis:\e[0m janitor <operation> [options] [targets]
-
-\e[1mSetup:\e[0m
+\e[1mSetup operations:\e[0m
 
     \e[1m--install\e[0m
         Create a symlink to this script called \e[3mjanitor\e[0m in /usr/local/bin.
@@ -60,7 +61,7 @@ help_string=$'
             \e[1m-n\e[0m      Display an empty line before and after the message, if there
                     is one.
 
-\e[1mDeprecated:\e[0m
+\e[1mDeprecated operations:\e[0m
 
     \e[1m--rewifi\e[0m
         Reload wifi driver module.
