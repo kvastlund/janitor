@@ -7,8 +7,9 @@
 
 echo -e "\e[35m"
 
-# TODO: Make misfortune and cowsay optional.
-misfortune | cowsay
+if [[ $(command -v misfortune) && $(command -v cowsay) ]]; then
+    misfortune | cowsay
+fi
 
 systemd-analyze
 
