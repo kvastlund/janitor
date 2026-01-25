@@ -3,15 +3,75 @@
 #-------------------------------------------------------------------------------
 # A little bash script to make viewing information about the system easier :)
 #-------------------------------------------------------------------------------
+#------> CONSTANTS <------------------------------------------------------------
+
+readonly FETCHLINGS=(
+                    "fastfetch"
+                    "hyfetch"
+                    "macchina"
+                    "screenfetch"
+                    "archey"
+                    "neofetch"
+                    "ufetch"
+                    "pfetch"
+                    "alsi"
+                    "catnap"
+                    "zeptofetch"
+                    "onefetch"
+                    "uwufetch"
+                    "footfetch"
+                    "nitch"
+                    "nitchrevived"
+                    "zeitfetch"
+                    "nanofetch"
+                    "wretch"
+                    "albafetch"
+                    "aerofetch"
+                    "ffetch"
+                    "paleofetch"
+                    "rxfetch"
+                    "nerdfetch"
+                    "brokefetch"
+                    "mvw"
+                    )
+
+#------> FUNCTIONS <------------------------------------------------------------
+
+_display_some_fetch() {
+    # shellcheck disable=SC2068
+    for fetchling in ${FETCHLINGS[@]}; do
+        if command -v "$fetchling" >/dev/null 2>&1; then
+            eval "$fetchling"
+            return
+        fi
+    done
+
+    # Backup info display
+    echo "Kernel name:            $(uname -s)"
+    echo "Network node hostname:  $(uname -n)"
+    echo "Kernel release:         $(uname -r)"
+    echo "Kernel version:         $(uname -v)"
+    echo "Machine hardware name:  $(uname -m)"
+    echo "Processor type:         $(uname -p)"
+    echo "Hardware platform:      $(uname -i)"
+    echo "Operating system:       $(uname -o)"
+}
+
+_display_the_rest() {
+    paru -Ps
+
+    echo -e "\n\e[35m::\e[1;4mSince $(stat -c %w / | awk '{sub(/\.0{9}/, ""); print}')\e[0;35m::\e[0m\n"
+
+    # Get from pacman.log instead
+    #echo -e "\n\e[35m::\e[1;4mSince $(awk -F "[[ ]" 'NR==1 {print $2;}' /var/log/pacman.log)\e[0;35m::\e[0m\n"
+}
+
+#------> Do stuff... <----------------------------------------------------------
 
 echo
-
-fastfetch
-
-paru -Ps
-
-#echo -e "\n\e[35m::\e[1;4mSince $(awk -F "[[ ]" 'NR==1 {print $2;}' /var/log/pacman.log)\e[0;35m::\e[0m\n"
-echo -e "\n\e[35m::\e[1;4mSince $(stat -c %w / | awk '{sub(/\.0{9}/, ""); print}')\e[0;35m::\e[0m\n"
-
+_display_some_fetch
+echo
+_display_the_rest
+echo
 
 #-------------------------------------------------------------------------------
