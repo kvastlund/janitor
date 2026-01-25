@@ -6,7 +6,7 @@ _help() {
     echo
     echo -e "\e[1mMaintenance and utility scripts.\e[0m"
     echo
-    echo -e "\e[1mSynopsis:\e[0m janitor <operation> [options] [target]"
+    echo -e "\e[1mSynopsis:\e[0m janitor <operation> [options] [targets]"
     echo
     echo -e "\e[1mOperations:\e[0m"
     echo -e "    \e[1m<no operation>, --greet\e[0m"
@@ -15,17 +15,17 @@ _help() {
     echo -e "    \e[1m-u, --upgrade\e[0m"
     echo "        Update and upgrade the system."
     echo
-    echo -e "    \e[1m-i, --installpkg\e[0m <package>"
-    echo "        Install a package."
+    echo -e "    \e[1m-i, --installpkg\e[0m <packages>"
+    echo "        Install packages."
     echo
-    echo -e "    \e[1m-r, --removepkg\e[0m <package>"
-    echo "        Remove a package."
+    echo -e "    \e[1m-r, --removepkg\e[0m <packages>"
+    echo "        Remove packages."
     echo
     echo -e "    \e[1m-c, --clean\e[0m"
     echo "        Clean up after pacman and paru."
     echo
-    echo -e "    \e[1m-x, --expel\e[0m <path>"
-    echo "        Move a file or directory to trash."
+    echo -e "    \e[1m-x, --expel\e[0m <paths>"
+    echo "        Move files and directories to trash."
     echo
     echo -e "    \e[1m--mpvwebcam\e[0m"
     echo "        Display webcam output in mpv."
@@ -51,11 +51,11 @@ _help() {
     echo -e "    \e[1m--patches\e[0m"
     echo -e "        List available patches."
     echo
-    echo -e "    \e[1m--patch\e[0m <patch>"
-    echo -e "        Apply a patch."
+    echo -e "    \e[1m--patch\e[0m <patches>"
+    echo -e "        Apply specified patches."
     echo
-    echo -e "    \e[1m--unpatch\e[0m <patch>"
-    echo -e "        Remove a patch."
+    echo -e "    \e[1m--unpatch\e[0m <patches>"
+    echo -e "        Remove specified patches."
     echo
     echo -e "    \e[1m-h, --help\e[0m"
     echo "        Print this help."
@@ -81,7 +81,7 @@ while getopts ":hcu:i:r:x:-:" opt; do
             exit;;
         c)  "$SCRIPTS_PATH"/clean
             exit;;
-        u)  systemd-inhibit "$SCRIPTS_PATH"/upgrade
+        u)  systemd-inhibit "$SCRIPTS_PATH"/upgrade "${@:2}"
             exit;;
         i)  systemd-inhibit "$SCRIPTS_PATH"/installpkg "${@:2}"
             exit;;
