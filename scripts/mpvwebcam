@@ -18,6 +18,10 @@
 # Janitor. If not, see <https://www.gnu.org/licenses/>.
 #-------------------------------------------------------------------------------
 
-mpv av://v4l2:/dev/video0 --profile=low-latency --untimed
+mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --input-ipc-server=/tmp/mpvsocket --script-opts=stats-duration=3600 --wid=-1 </dev/null &>/dev/null & disown
+
+sleep 1
+
+echo 'script-binding stats/display-stats' | socat - /tmp/mpvsocket
 
 #-------------------------------------------------------------------------------
