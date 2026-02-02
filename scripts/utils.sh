@@ -37,13 +37,16 @@ declare -a util_packages util_dependencies
 util_setup_pkgs() {
     # Choose packages
     for query in "${@:1}"; do
-        local queryoutput
-        queryoutput=$(paru -Ss --interactive --bottomup --color always "$query" | tee /dev/stderr | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
+        local pkgsraw
+        pkgsraw=$(paru -Ss --interactive --bottomup --color always "$query" \
+            | tee /dev/stderr \
+            | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
 
         local pkgsstring
-        pkgsstring=$(echo "${queryoutput##*:}" | xargs)
+        pkgsstring=$(echo "${pkgsraw##*:}" | xargs)
 
-        if [[ ($pkgsstring != "") && ($pkgsstring != "there is nothing to do") ]]; then
+        if [[ ($pkgsstring != "") \
+            && ($pkgsstring != "there is nothing to do") ]]; then
             util_packages+=("$pkgsstring")
         fi
     done
@@ -83,7 +86,9 @@ util_setup_pkgs() {
 #-------------------------------------------------------------------------------
 util_set_deps() {
     # shellcheck disable=SC2068
-    [[ ${#util_dependencies[@]} -gt 0 ]] && paru -D --asdeps ${util_dependencies[@]}
+    if [[ ${#util_dependencies[@]} -gt 0 ]]; then
+        paru -D --asdeps ${util_dependencies[@]}
+    fi
 }
 
 #======> DISPLAY MIRRORLIST RETIREVED TIME <====================================
@@ -101,7 +106,16 @@ util_set_deps() {
 #-------------------------------------------------------------------------------
 util_mirtime() {
     local retrieved_time
-    retrieved_time=$(pacman -v 2> /dev/null | grep 'Conf File' | cut -d ' ' -f 4 | xargs cat | grep '\[core\]' -A 1 | grep 'Include' | cut -d ' ' -f 3 | xargs cat | grep 'Retrieved' | cut -d ' ' -f 4,5,6)
+    retrieved_time=$(pacman -v 2> /dev/null \
+        | grep 'Conf File' \
+        | cut -d ' ' -f 4 \
+        | xargs cat \
+        | grep '\[core\]' -A 1 \
+        | grep 'Include' \
+        | cut -d ' ' -f 3 \
+        | xargs cat \
+        | grep 'Retrieved' \
+        | cut -d ' ' -f 4,5,6)
 
     if [[ $retrieved_time != "" ]]; then
         [[ $1 == "pad" ]] && echo
