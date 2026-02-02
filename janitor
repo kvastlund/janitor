@@ -148,7 +148,7 @@ while getopts ":hcui:r:x:-:" opt; do
                             exit;;
                 unpatch)    "$SCRIPTS_PATH"/patch remove "${@:2}"
                             exit;;
-                rewifi)     "$SCRIPTS_PATH"/rewifi
+                rewifi)     "$SCRIPTS_PATH"/deprecated/rewifi
                             exit;;
                 *)          # Invalid option
                             _opt_error "$OPTARG" "-"
