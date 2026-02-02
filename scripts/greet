@@ -1,5 +1,5 @@
 #!/bin/bash
-#-------------------------------------------------------------------------------
+#===============================================================================
 # A little bash script to make being greeted with a 'Good morning' or whatever
 # easier :)
 # Copyright (C) 2024-2026 kvastlund
@@ -17,7 +17,7 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # Janitor. If not, see <https://www.gnu.org/licenses/>.
-#-------------------------------------------------------------------------------
+#===============================================================================
 
 echo -e "\e[35m"
 
@@ -27,7 +27,6 @@ fi
 
 systemd-analyze
 
-#echo -e "\n::\e[1;4mSince $(awk -F "[[ ]" 'NR==1 {print $2;}' /var/log/pacman.log)\e[0;35m::\e[0m\n"
 echo -e "\n::\e[1;4mSince $(stat -c %w / | awk '{sub(/\.0{9}/, ""); print}')\e[0;35m::\e[0m\n"
 
-#-------------------------------------------------------------------------------
+#===============================================================================

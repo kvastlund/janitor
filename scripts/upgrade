@@ -1,5 +1,5 @@
 #!/bin/bash
-#-------------------------------------------------------------------------------
+#===============================================================================
 # A little bash script to make updating and upgrading the system easier :)
 # Copyright (C) 2024-2026 kvastlund
 #
@@ -16,29 +16,29 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # Janitor. If not, see <https://www.gnu.org/licenses/>.
-#-------------------------------------------------------------------------------
+#===============================================================================
 
 trap 'echo -e "\e[0m"; exit' INT
 
-#------> LIBRARIES <------------------------------------------------------------
+#======> LIBRARIES <============================================================
 
 . $(dirname "$(realpath "${BASH_SOURCE[0]}")")/utils.sh
 
-#------> CONSTANTS <------------------------------------------------------------
+#======> CONSTANTS <============================================================
 
 readonly TIMEOUT_DUR="10s"
 
 SCRIPTS_PATH=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 readonly SCRIPTS_PATH
 
-#------> NEWS! <----------------------------------------------------------------
+#======> NEWS! <================================================================
 
 echo -e "\e[35m"
 timeout $TIMEOUT_DUR paru -Pw
 if [ $? -eq 124 ]; then echo "'paru -Pw' timed out after $TIMEOUT_DUR."; fi
 echo -e "\e[0m"
 
-#------> update official and AUR <----------------------------------------------
+#======> update official and AUR <==============================================
 
 # Choose packages and dependencies
 util_setup_pkgs ${@:1}
@@ -58,9 +58,9 @@ sudo -E pacdiff
 echo
 "$SCRIPTS_PATH"/clean
 
-#------> Goodbye <--------------------------------------------------------------
+#======> Goodbye <==============================================================
 
 echo -e "\n\e[1;35mThank you for upgrading me! See you soon i hope :)\e[0m\n"
 exit 0
 
-#-------------------------------------------------------------------------------
+#===============================================================================

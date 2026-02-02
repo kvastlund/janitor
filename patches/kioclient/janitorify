@@ -1,5 +1,5 @@
 #!/bin/bash
-#-------------------------------------------------------------------------------
+#===============================================================================
 # A little bash script to make management of a desktop file for kioclient,
 # which shouldn't be needed if the bug was fixed properly, easier :)
 # Copyright (C) 2026 kvastlund
@@ -17,7 +17,7 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # Janitor. If not, see <https://www.gnu.org/licenses/>.
-#-------------------------------------------------------------------------------
+#===============================================================================
 
 PATCH_NAME=org.kde..desktop
 PATCH_SOURCE=$(dirname "$(realpath "$0")")/$PATCH_NAME
@@ -32,4 +32,4 @@ else
     exit 1
 fi
 
-#-------------------------------------------------------------------------------
+#===============================================================================
