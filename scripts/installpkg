@@ -20,55 +20,26 @@
 
 trap 'echo -e "\e[0m"; exit' INT
 
-#------> CONSTANTS <------------------------------------------------------------
+#------> LIBRARIES <------------------------------------------------------------
 
-SCRIPTS_PATH=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
-readonly SCRIPTS_PATH
+. $(dirname "$(realpath "${BASH_SOURCE[0]}")")/utils.sh
 
 #------> DO THE THING! <--------------------------------------------------------
 
-# TODO: Put the choosing in a separate script
-# Choose packages
-for query in "${@:1}"; do
-    queryoutput=$(paru -Ss --interactive --bottomup --color always "$query" | tee /dev/stderr | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
+# Choose packages and dependencies
+util_setup_pkgs ${@:1}
 
-    pkgsstring=$(echo "${queryoutput##*:}" | xargs)
-
-    if [[ ($pkgsstring != "") && ($pkgsstring != "there is nothing to do") ]]; then
-        packages+=("$pkgsstring")
-    fi
-done
-echo
-
-# Choose dependencies
-# shellcheck disable=SC2068
-for pkg in ${packages[@]}; do
-    while true; do
-        echo -ne "\e[1m"
-        read -p "Install $pkg as a dependency? [y/N] " -n 1 -r
-        echo -ne "\e[0m"
-
-        [[ $REPLY == "" ]] && break
-        echo
-        [[ ($REPLY =~ ^[Yy]$) || ($REPLY =~ ^[Nn]$) ]] && break
-    done
-
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        dependencies+=("$(echo "$pkg" | cut -d '/' -f 2)")
-    fi
-done
-
-"$SCRIPTS_PATH"/mirtime -n
+# Display mirrorlist retrieved time
+util_mirtime pad
 
 # Download and install
-if [ ${#packages[@]} -ne 0 ]; then
+if [ ${#util_packages[@]} -ne 0 ]; then
     # shellcheck disable=SC2068
-    paru -S --sudoloop --upgrademenu --bottomup --cleanafter ${packages[@]}
+    paru -Sp --sudoloop --upgrademenu --bottomup --cleanafter ${util_packages[@]}
 fi
 
 # Set dependencies
-# shellcheck disable=SC2068
-[ ${#dependencies[@]} -ne 0 ] && paru -D --asdeps ${dependencies[@]}
+util_set_deps
 
 exit 0
 
