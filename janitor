@@ -72,12 +72,6 @@ readonly HELP_STRING=$'
     \e[1m--mpvwebcam\e[0m
         Display webcam output in mpv.
 
-    \e[1m--mirtime\e[0m [options]
-        Display when the current mirrorlist was retrieved.
-
-            \e[1m-n\e[0m      Display an empty line before and after the message, if there
-                    is one.
-
 \e[1mDeprecated operations:\e[0m
 
     \e[1m--rewifi\e[0m
