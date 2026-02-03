@@ -36,7 +36,7 @@ readonly SCRIPTS_PATH
 echo -e "\e[35m"
 timeout $TIMEOUT_DUR paru -Pw
 if [ $? -eq 124 ]; then echo "'paru -Pw' timed out after $TIMEOUT_DUR."; fi
-echo -e "\e[0m"
+echo -ne "\e[0m"
 
 #======> update official and AUR <==============================================
 
