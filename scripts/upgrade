@@ -48,7 +48,7 @@ util_mirtime pad
 
 # Download and install
 # shellcheck disable=SC2068
-paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter ${packages[@]}
+paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter ${util_packages[@]}
 
 # Set dependencies
 util_set_deps
