@@ -16,6 +16,9 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # Janitor. If not, see <https://www.gnu.org/licenses/>.
+#-------------------------------------------------------------------------------
+# TODO: Ask if you want listed new optional dependencies after install.
+# TODO: Ask if you want to reboot after install.
 #===============================================================================
 
 trap 'echo -e "\e[0m"; exit' INT
