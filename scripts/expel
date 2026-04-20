@@ -24,18 +24,18 @@ trap 'echo -e "\e[0m"; exit' INT
 
 for path in "${@:1}"; do
     if [ -w "$path" ]; then
-        nosudos+=("$path")
+        noprivs+=("$path")
     else
-        yessudos+=("$path")
+        yesprivs+=("$path")
     fi
 done
 
-if [ ${#nosudos[@]} -ne 0 ]; then
-    kioclient move "${nosudos[@]}" trash:/
+if [ ${#noprivs[@]} -ne 0 ]; then
+    kioclient move "${noprivs[@]}" trash:/
 fi
 
-if [ ${#yessudos[@]} -ne 0 ]; then
-    sudo -k kioclient move "${yessudos[@]}" trash:/
+if [ ${#yesprivs[@]} -ne 0 ]; then
+    run0 --setenv=QT_QPA_PLATFORM=offscreen kioclient move "${yesprivs[@]}" trash:/
 fi
 
 #===============================================================================
