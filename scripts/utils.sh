@@ -124,4 +124,33 @@ util_mirtime() {
     fi
 }
 
+#======> DISPLAY TRUECOLOR SPECTRAL EXAMPLE <===================================
+
+#-------------------------------------------------------------------------------
+# Print a spectrum of colors.
+# Mainly shamelessly stolen from <https://github.com/termstandard/colors>.
+# Arguments:
+#   None.
+# Outputs:
+#   A line of unicode characters in a simplified spectrum of colors with the
+#   background in inverse colors.
+# Returns:
+#   Hopefully 0, i guess
+#-------------------------------------------------------------------------------
+util_truecolortest() {
+    awk 'BEGIN{
+        s="\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584"; s=s s s s s s s s;
+        for (colnum = 0; colnum<77; colnum++) {
+            r = 255-(colnum*255/76);
+            g = (colnum*510/76);
+            b = (colnum*255/76);
+            if (g>255) g = 510-g;
+            printf "\033[48;2;%d;%d;%dm", r,g,b;
+            printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+            printf "%s\033[0m", substr(s,colnum+1,1);
+        }
+        printf "\n";
+    }'
+}
+
 #===============================================================================
