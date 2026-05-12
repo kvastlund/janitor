@@ -17,7 +17,11 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # Janitor. If not, see <https://www.gnu.org/licenses/>.
-#===============================================================================
+#======> LIBRARIES <============================================================
+
+. $(dirname "$(realpath "${BASH_SOURCE[0]}")")/utils.sh
+
+#======> DO THE THING! <========================================================
 
 echo -e "\e[35m"
 
@@ -27,6 +31,6 @@ fi
 
 systemd-analyze
 
-echo -e "\n::\e[1;4mSince $(stat -c %w / | awk '{sub(/\.0{9}/, ""); print}')\e[0;35m::\e[0m\n"
+echo -e "$(util_dateofbirth fancy)\n"
 
 #===============================================================================

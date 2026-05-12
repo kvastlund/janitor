@@ -23,7 +23,7 @@
 #======> CONSTANTS <============================================================
 
 readonly FETCHLINGS=(
-                    "fastfetch"
+                    "fastfetch --logo arch_old"
                     "hyfetch"
                     "macchina"
                     "screenfetch"
@@ -55,8 +55,8 @@ readonly FETCHLINGS=(
 
 _display_some_fetch() {
     # shellcheck disable=SC2068
-    for fetchling in ${FETCHLINGS[@]}; do
-        if command -v "$fetchling" >/dev/null 2>&1; then
+    for fetchling in "${FETCHLINGS[@]}"; do
+        if command -v ${fetchling%% *} >/dev/null 2>&1; then
             eval "$fetchling"
             return
         fi
@@ -76,16 +76,18 @@ _display_some_fetch() {
 _display_the_rest() {
     paru -Ps
 
-    echo -e "\n\e[35m::\e[1;4mSince $(stat -c %w / | awk '{sub(/\.0{9}/, ""); print}')\e[0;35m::\e[0m\n"
+    echo -e "$(util_dateofbirth fancy)\n"
 }
 
 #======> DO THE THING! <========================================================
 
+echo
 util_truecolortest
 echo
 _display_some_fetch
 echo
 _display_the_rest
 util_truecolortest
+echo
 
 #===============================================================================

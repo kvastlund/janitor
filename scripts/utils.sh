@@ -153,4 +153,30 @@ util_truecolortest() {
     }'
 }
 
+#======> DISPLAY DATE OF BIRTH (INSTALL) <======================================
+
+#-------------------------------------------------------------------------------
+# Print the install date of the operating system, either simply or fancily.
+# Arguments:
+#   'fancy' : Add some flair.
+# Outputs:
+#   '%Y-%m-%dT%H:%M:%S%:z'
+#   '\n:: Since %Y-%m-%dT%H:%M:%S%:z ::\n'
+# Returns:
+#   Hopefully 0, i guess
+#-------------------------------------------------------------------------------
+util_dateofbirth() {
+    local dateofbirth
+    dateofbirth=$( \
+        date -Ins -d "$(stat -c %w /)" \
+        | awk '{sub(/,0*/, ""); print}' \
+    )
+
+    if [[ $1 == "fancy" ]]; then
+        echo -e "\n\e[35m::\e[1;4mSince $dateofbirth\e[0m \e[35m::\e[0m\n"
+    else
+        echo $dateofbirth
+    fi
+}
+
 #===============================================================================
