@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 # A little bash script to make unloading and reloading the wifi driver module
 # easier :)
-# Copyright (C) 2024-2026 kvastlund
+# Copyright (C) 2024-2026 kvastlund.
 #
 # This file is part of Janitor.
 #

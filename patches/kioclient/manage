@@ -2,7 +2,7 @@
 #===============================================================================
 # A little bash script to make management of a desktop file for kioclient,
 # which shouldn't be needed if the bug was fixed properly, easier :)
-# Copyright (C) 2026 kvastlund
+# Copyright (C) 2026 kvastlund.
 #
 # This file is part of Janitor.
 #

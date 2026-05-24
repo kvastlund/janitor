@@ -1,5 +1,5 @@
-*Information about Janitor*\
-*Copyright (C) 2024-2026 [kvastlund](https://github.com/kvastlund)*\
+*Information about Janitor.*\
+*Copyright (C) 2024-2026 [kvastlund](https://github.com/kvastlund).*\
 *See the end of the file for license conditions.*
 
 # Janitor

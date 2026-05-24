@@ -1,7 +1,7 @@
 # shellcheck disable=SC2148
 #===============================================================================
 # A little bash library to make avoiding code repetition easier :)
-# Copyright (C) 2026 kvastlund
+# Copyright (C) 2026 kvastlund.
 #
 # This file is part of Janitor.
 #

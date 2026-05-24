@@ -1,5 +1,5 @@
-*Contributor guidelines*\
-*Copyright (C) 2026 [kvastlund](https://github.com/kvastlund)*\
+*Contributor guidelines.*\
+*Copyright (C) 2026 [kvastlund](https://github.com/kvastlund).*\
 *See the end of the file for license conditions.*
 
 # Contributing to Janitor
