@@ -72,6 +72,10 @@ readonly HELP_STRING=$'
     \e[1m--mpvwebcam\e[0m
         Display webcam output in mpv.
 
+    \e[1m--lines\e[0m
+        Prefix lines of standard input with line numbers and write to standard
+        output.
+
 \e[1mDeprecated operations:\e[0m
 
     \e[1m--rewifi\e[0m
@@ -137,6 +141,8 @@ while getopts ":hcui:r:x:-:" opt; do
                 sysinfo)    "$SCRIPTS_PATH"/sysinfo
                             exit;;
                 mirtime)    "$SCRIPTS_PATH"/mirtime "$2"
+                            exit;;
+                lines)      "$SCRIPTS_PATH"/lines
                             exit;;
                 install)    _install
                             exit;;
