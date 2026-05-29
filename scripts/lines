@@ -22,7 +22,8 @@ trap 'echo -e "\e[0m"; exit' INT
 
 #======> CONSTANTS <============================================================
 
-readonly separator=$'\033[30;42m \033[0m '
+readonly separator=$'\033[0m '
+readonly prefix=$'\033[30;42;1m' # Bold black text on green background.
 
 #===============================================================================
 
@@ -30,6 +31,8 @@ input=$(cat)
 
 width=$(($(echo "$input" | wc -l | wc -m) - 1))
 
-echo "$input" | nl -ba -fa -ha -s"$separator" -w"$width"
+echo "$input" \
+    | nl -ba -fa -ha -s"$separator" -w"$width" \
+    | awk -v prefix="$prefix" '{print prefix $0}'
 
 #===============================================================================
