@@ -175,7 +175,7 @@ util_dateofbirth() {
     if [[ $1 == "fancy" ]]; then
         echo -e "\n\e[35m::\e[1;4mSince $dateofbirth\e[0m \e[35m::\e[0m\n"
     else
-        echo $dateofbirth
+        echo "$dateofbirth"
     fi
 }
 
