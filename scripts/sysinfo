@@ -57,7 +57,7 @@ _display_some_fetch() {
     # shellcheck disable=SC2068
     for fetchling in "${FETCHLINGS[@]}"; do
         if command -v ${fetchling%% *} >/dev/null 2>&1; then
-            eval "$fetchling"
+            $fetchling
             return
         fi
     done
