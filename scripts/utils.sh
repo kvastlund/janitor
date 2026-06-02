@@ -18,6 +18,7 @@
 # Janitor. If not, see <https://www.gnu.org/licenses/>.
 #-------------------------------------------------------------------------------
 # Source this file: `$source /path/to/utils.sh` or `$. /path/to/utils.sh`
+
 #======> CHOOSE PACKAGES AND DEPENDENCIES <=====================================
 
 # Do this first
@@ -89,6 +90,22 @@ util_set_deps() {
     if [[ ${#util_dependencies[@]} -gt 0 ]]; then
         paru -D --asdeps ${util_dependencies[@]}
     fi
+}
+
+#======> REMOVE LEFTOVERS IN PACMAN CACHE <=====================================
+
+#-------------------------------------------------------------------------------
+# Remove supposedly temporary download directories that alpm erroneously leaves
+# behind in '/var/cache/pacman/pkg/'.
+# Arguments:
+#   None
+# Outputs:
+#   Whatever sudo and rm decides to output
+# Returns:
+#   Hopefully 0, i guess
+#-------------------------------------------------------------------------------
+util_remove_pacman_cache_leftovers() {
+    sudo rm -d /var/cache/pacman/pkg/download-*
 }
 
 #======> DISPLAY MIRRORLIST RETIREVED TIME <====================================

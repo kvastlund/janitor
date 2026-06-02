@@ -56,6 +56,9 @@ paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter ${util_packages[@]}
 # Set dependencies
 util_set_deps
 
+# Remove certain things the shouldn't be there
+util_remove_pacman_cache_leftovers
+
 # Sort out the rest
 echo
 "$SCRIPTS_PATH"/clean

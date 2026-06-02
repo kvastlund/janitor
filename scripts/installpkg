@@ -44,6 +44,9 @@ fi
 # Set dependencies
 util_set_deps
 
+# Remove certain things the shouldn't be there
+util_remove_pacman_cache_leftovers
+
 exit 0
 
 #===============================================================================
