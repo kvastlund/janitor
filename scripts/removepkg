@@ -27,7 +27,7 @@ readonly SCRIPTS_PATH
 
 #===============================================================================
 
-paru -Rns "${@:1}"
+paru -Rs "${@:1}"
 echo
 "$SCRIPTS_PATH"/clean
 

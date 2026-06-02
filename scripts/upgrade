@@ -57,7 +57,6 @@ paru -Syu --sudoloop --upgrademenu --bottomup --cleanafter ${util_packages[@]}
 util_set_deps
 
 # Sort out the rest
-sudo -E pacdiff
 echo
 "$SCRIPTS_PATH"/clean
 
