@@ -22,7 +22,22 @@ trap 'echo -e "\e[0m"; exit' INT
 
 #===============================================================================
 
-sudo -E pacdiff
+while true; do
+    echo -e "\e[1m Do you want to perform are more thorough search for\e[22;3m .pac*\e[23;1m files using find?"
+    read -p "[y/N] " -n 1 -r
+    echo -ne "\e[0m"
+
+    [[ $REPLY == "" ]] && break
+    echo
+    [[ ($REPLY =~ ^[Yy]$) || ($REPLY =~ ^[Nn]$) ]] && break
+done
+
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo -E pacdiff -f
+else
+    sudo -E pacdiff
+fi
+
 
 echo -e "\e[1mLooking for poor little orphans to throw out on the street...\e[0m"
 paru -c
