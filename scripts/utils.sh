@@ -105,7 +105,7 @@ util_set_deps() {
 #   Hopefully 0, i guess
 #-------------------------------------------------------------------------------
 util_remove_pacman_cache_leftovers() {
-    sudo rm -d /var/cache/pacman/pkg/download-*
+    sudo rm -df /var/cache/pacman/pkg/download-*
 }
 
 #======> DISPLAY MIRRORLIST RETIREVED TIME <====================================
