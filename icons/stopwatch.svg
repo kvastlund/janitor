@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg width="22" height="22" version="1.1" viewBox="0 0 5.8208 5.8208" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<svg width="32" height="32" version="1.1" viewBox="0 0 8.4667 8.4667" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <title>Stopwatch</title>
-    <path d="m2.2166 4.7316c-0.44204 0.12985-0.89193-0.17012-1.0128-0.59947-0.15265-0.54215 0.21622-1.0907 0.74387-1.2338 0.65475-0.17759 1.3139 0.26896 1.4814 0.90732 0.20473 0.7803-0.32862 1.5626-1.0906 1.7567-0.91928 0.23413-1.8377-0.39549-2.0606-1.2944-0.26585-1.0721 0.46983-2.1401 1.5195-2.3941 1.2393-0.29994 2.4705 0.5519 2.7581 1.7666 0.15823 0.66834 0.02781 1.3839-0.33969 1.9622" fill="none" stroke="#000" stroke-linecap="round" stroke-width=".42333"/>
-    <g>
-        <circle cx="2.249" cy="3.8365" r=".39687" style="paint-order:normal"/>
-        <rect x="1.8521" y=".52917" width=".79375" height="1.3229" style="paint-order:normal"/>
+    <g transform="matrix(1.4631 0 0 1.4563 -7.3829 -.0079983)">
+        <path transform="translate(5.3244 -.28725)" d="m2.2166 4.7316c-0.44204 0.12985-0.89193-0.17012-1.0128-0.59947-0.15265-0.54215 0.21622-1.0907 0.74387-1.2338 0.65475-0.17759 1.3139 0.26896 1.4814 0.90732 0.20473 0.7803-0.32862 1.5626-1.0906 1.7567-0.91928 0.23413-1.8377-0.39549-2.0606-1.2944-0.26585-1.0721 0.46983-2.1401 1.5195-2.3941 1.2393-0.29994 2.4705 0.5519 2.7581 1.7666 0.15823 0.66834 0.02781 1.3839-0.33969 1.9622" fill="none" stroke="#000" stroke-linecap="round"/>
+        <ellipse cx="7.8403" cy="3.8248" rx=".92604" ry=".92604" style="paint-order:normal"/>
         <g stroke="#000" stroke-linecap="round">
-            <path d="m3.6822 2.1386 0.74501-0.74501" stroke-width=".67045" style="paint-order:normal"/>
-            <path d="m4.2955 0.85588 0.66948 0.68502" stroke-width=".644" style="paint-order:normal"/>
-            <path d="m1.5875 0.26458h1.3229" stroke-width=".52917" style="paint-order:normal"/>
+            <path d="m9.1281 1.9844 0.74501-0.74501" fill="none" stroke-width="1.2" style="paint-order:normal"/>
+            <path d="m9.5873 0.84833 0.66458 0.67235" fill="#fff" stroke-width="1.192" style="paint-order:normal"/>
+            <path d="m6.8546 0.55055h1.4467" fill="none" stroke-width="1.1036" style="paint-order:normal"/>
+        </g>
+    </g>
+    <path transform="matrix(1.4631 0 0 1.4563 .40698 -.42631)" d="m2.2166 4.7316c-0.44204 0.12985-0.89193-0.17012-1.0128-0.59947-0.15265-0.54215 0.21622-1.0907 0.74387-1.2338 0.65475-0.17759 1.3139 0.26896 1.4814 0.90732 0.20473 0.7803-0.32862 1.5626-1.0906 1.7567-0.91928 0.23413-1.8377-0.39549-2.0606-1.2944-0.26585-1.0721 0.46983-2.1401 1.5195-2.3941 1.2393-0.29994 2.4705 0.5519 2.7581 1.7666 0.15823 0.66834 0.02781 1.3839-0.33969 1.9622" fill-rule="evenodd" stroke="#fff" stroke-linecap="round" stroke-width=".42333"/>
+    <g fill="#fff">
+        <ellipse cx="3.7042" cy="5.2917" rx=".52917" ry=".52917" style="paint-order:normal"/>
+        <rect x="3.175" y=".79375" width="1.0583" height="1.3229" style="paint-order:normal"/>
+        <g stroke="#fff" stroke-linecap="round">
+            <path d="m6.0854 2.9104 0.87885-1.0275" stroke-width=".74909" style="paint-order:normal"/>
+            <path d="m6.644 1.2274 0.98578 0.99252" stroke-width=".94064" style="paint-order:normal"/>
+            <path d="m2.733 0.74559h1.9355" stroke-width=".77241" style="paint-order:normal"/>
         </g>
     </g>
     <metadata>
