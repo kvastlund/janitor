@@ -18,7 +18,7 @@
 # Janitor. If not, see <https://www.gnu.org/licenses/>.
 #======> LIBRARIES <============================================================
 
-. $(dirname "$(realpath "${BASH_SOURCE[0]}")")/utils.sh
+. "$(dirname "$(realpath "${BASH_SOURCE[0]}")")"/utils.sh
 
 #======> CONSTANTS <============================================================
 
