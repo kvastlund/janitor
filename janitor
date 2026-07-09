@@ -76,19 +76,26 @@ readonly HELP_STRING=$'
         Prefix lines of standard input with line numbers and write to standard
         output.
 
+    \e[1m--stopwatch\e[0m <command>
+        Run the given command and notify how long it took to finish.
+
 \e[1mDeprecated operations:\e[0m
 
     \e[1m--rewifi\e[0m
         Reload wifi driver module.
 '
 
-SCRIPTS_PATH=$(dirname "$(realpath "${BASH_SOURCE[0]}")")/scripts
+JANITOR_PATH=$(realpath "${BASH_SOURCE[0]}")
+readonly JANITOR_PATH
+JANITOR_DIR=$(dirname "$JANITOR_PATH")
+readonly JANITOR_DIR
+SCRIPTS_PATH=$JANITOR_DIR/scripts
 readonly SCRIPTS_PATH
 
 #======> FUNCTIONS <============================================================
 
 _install() {
-    sudo ln -s "$(realpath "${BASH_SOURCE[0]}")" /usr/local/bin
+    sudo ln -s "$JANITOR_PATH" /usr/local/bin
 }
 
 _uninstall() {
@@ -143,6 +150,8 @@ while getopts ":hcui:r:x:-:" opt; do
                 mirtime)    "$SCRIPTS_PATH"/mirtime "$2"
                             exit;;
                 lines)      "$SCRIPTS_PATH"/lines
+                            exit;;
+                stopwatch)  "$SCRIPTS_PATH"/stopwatch "${@:2}"
                             exit;;
                 install)    _install
                             exit;;

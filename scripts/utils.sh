@@ -76,6 +76,7 @@ util_upfind() {
 # Returns:
 #   Hopefully 0, i guess.
 #-------------------------------------------------------------------------------
+#TODO: Combined time format.
 util_stopwatch() {
     local starttime
     local elapsedtime
@@ -83,10 +84,11 @@ util_stopwatch() {
     starttime=$(date +%s)
     "$@"
     elapsedtime=$(($(date +%s) - starttime))
-    # Move to ~/.local/share/icons
-    icon="--icon $(util_upfind "stopwatch.svg" "icons")"
+    cd "$(dirname "$(realpath "${BASH_SOURCE[0]}")")" || exit 1
+    icon="--icon $(realpath "$(util_upfind "stopwatch.svg" "icons")")"
+    cd ~- || exit 1
     # shellcheck disable=SC2068
-    notify-send --hint='string:desktop-entry:org.kde.konsole' $icon "Command finished." "$* took $elapsedtime seconds to finish."
+    notify-send -a "Janitor: Stopwatch" $icon "Command finished." "'$*' finished after $elapsedtime seconds."
 }
 
 #======> CHOOSE PACKAGES AND DEPENDENCIES <=====================================
