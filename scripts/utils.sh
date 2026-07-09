@@ -19,6 +19,76 @@
 #-------------------------------------------------------------------------------
 # Source this file: `$source /path/to/utils.sh` or `$. /path/to/utils.sh`
 
+#======> FIND UPWARDS <=========================================================
+
+#-------------------------------------------------------------------------------
+# Private helper function. Search using find, but go upwards.
+# Arguments:
+#   starting directory path
+#   filename
+#   directory (not path) where file is expected to be (optional)
+# Outputs:
+#   Hopefully the path to the file.
+# Returns:
+#   Hopefully 0, i guess.
+#-------------------------------------------------------------------------------
+private_upfind_continue() {
+    local foundpath
+
+    cd ../ || exit 1
+
+    foundpath="$(find "$3" -name "$2" -print -quit 2>/dev/null)"
+
+    if [[ $foundpath == "" ]]; then
+        if [[ "$PWD" != "/" ]]; then
+            private_upfind_continue "../$1" "$2" "$3"
+        else
+            exit 1
+        fi
+    else
+        echo "$1$foundpath"
+    fi
+}
+
+#-------------------------------------------------------------------------------
+# Search using find, but go upwards. Starts from parent directory.
+# Arguments:
+#   filename
+#   directory (not path) where file is expected to be (optional)
+# Outputs:
+#   Hopefully the path to the file.
+# Returns:
+#   Hopefully 0, i guess.
+#-------------------------------------------------------------------------------
+util_upfind() {
+    private_upfind_continue "../" "$1" "$2"
+}
+
+#======> NOTIFY ABOUT TIME FOR COMMAND TO FINISH <==============================
+
+#-------------------------------------------------------------------------------
+# Measure how long it takes for the given command to finish and notify after.
+# Arguments:
+#   Command with arguments.
+# Outputs:
+#   Hopefully whatever the given command returns.
+#   Notification with time.
+# Returns:
+#   Hopefully 0, i guess.
+#-------------------------------------------------------------------------------
+util_stopwatch() {
+    local starttime
+    local elapsedtime
+    local icon
+    starttime=$(date +%s)
+    "$@"
+    elapsedtime=$(($(date +%s) - starttime))
+    # Move to ~/.local/share/icons
+    icon="--icon $(util_upfind "stopwatch.svg" "icons")"
+    # shellcheck disable=SC2068
+    notify-send --hint='string:desktop-entry:org.kde.konsole' $icon "Command finished." "$* took $elapsedtime seconds to finish."
+}
+
 #======> CHOOSE PACKAGES AND DEPENDENCIES <=====================================
 
 # Do this first
@@ -27,11 +97,11 @@
 # Arguments:
 #   Names of the desired packages as separate arguments.
 # Outputs:
-#   Chosen packages into variable 'util_packages'
-#   Chosen dependencies into variable 'util_dependencies'
-#   Whatever paru decides to output
+#   Chosen packages into variable 'util_packages'.
+#   Chosen dependencies into variable 'util_dependencies'.
+#   Whatever paru decides to output.
 # Returns:
-#   Hopefully 0, i guess
+#   Hopefully 0, i guess.
 #-------------------------------------------------------------------------------
 declare -a util_packages util_dependencies
 
@@ -79,9 +149,9 @@ util_setup_pkgs() {
 #-------------------------------------------------------------------------------
 # Set specified packages as dependencies.
 # Arguments:
-#   None
+#   None.
 # Outputs:
-#   Whatever paru decides to output
+#   Whatever paru decides to output.
 # Returns:
 #   Hopefully 0, i guess
 #-------------------------------------------------------------------------------
@@ -98,11 +168,11 @@ util_set_deps() {
 # Remove supposedly temporary download directories that alpm erroneously leaves
 # behind in '/var/cache/pacman/pkg/'.
 # Arguments:
-#   None
+#   None.
 # Outputs:
-#   Whatever sudo and rm decides to output
+#   Whatever sudo and rm decides to output.
 # Returns:
-#   Hopefully 0, i guess
+#   Hopefully 0, i guess.
 #-------------------------------------------------------------------------------
 util_remove_pacman_cache_leftovers() {
     sudo rm -df /var/cache/pacman/pkg/download-*
