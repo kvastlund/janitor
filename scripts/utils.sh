@@ -76,19 +76,45 @@ util_upfind() {
 # Returns:
 #   Hopefully 0, i guess.
 #-------------------------------------------------------------------------------
-#TODO: Combined time format.
 util_stopwatch() {
     local starttime
     local elapsedtime
     local icon
+    local seconds
+    local minutes
+    local hours
+
     starttime=$(date +%s)
     "$@"
     elapsedtime=$(($(date +%s) - starttime))
+
     cd "$(dirname "$(realpath "${BASH_SOURCE[0]}")")" || exit 1
     icon="--icon $(realpath "$(util_upfind "stopwatch.svg" "icons")")"
     cd ~- || exit 1
+
+    seconds=$(("$elapsedtime" % 60))
+    if [[ $seconds -gt 0 ]]; then
+        seconds=" ${seconds}s"
+    else
+        seconds=" > ${seconds}s"
+    fi
+
+    minutes=$(("$elapsedtime" / 60 % 60))
+    if [[ $minutes -gt 0 ]]; then
+        minutes=" ${minutes}m"
+    else
+        minutes=""
+    fi
+
+    hours=$(("$elapsedtime" / 60 / 60 ))
+    if [[ $hours -gt 0 ]]; then
+        hours=" ${hours}h"
+    else
+        hours=""
+    fi
+
     # shellcheck disable=SC2068
-    notify-send -a "Janitor: Stopwatch" $icon "Command finished." "'$*' finished after $elapsedtime seconds."
+    notify-send -a "Janitor: Stopwatch" $icon "Command finished." "'$*' finished after$hours$minutes$seconds."
 }
 
 #======> CHOOSE PACKAGES AND DEPENDENCIES <=====================================
