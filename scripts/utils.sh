@@ -224,12 +224,10 @@ util_mirtime() {
     retrieved_time=$(pacman -v 2> /dev/null \
         | grep 'Conf File' \
         | cut -d ' ' -f 4 \
-        | xargs cat \
-        | grep '\[core\]' -A 1 \
+        | xargs grep '\[core\]' -A 1 \
         | grep 'Include' \
         | cut -d ' ' -f 3 \
-        | xargs cat \
-        | grep 'Retrieved' \
+        | xargs grep 'Retrieved' \
         | cut -d ' ' -f 4,5,6)
 
     if [[ $retrieved_time != "" ]]; then
