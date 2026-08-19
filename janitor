@@ -66,6 +66,14 @@ readonly HELP_STRING=$'
     \e[1m-x, --expel\e[0m <paths>
         Move files and directories to trash.
 
+    \e[1m--ignorepkg\e[0m <argument(s)>
+        Manage pacman\'s ignorance of packages.
+        It is possible to use any number of any of the arguments in any order.
+        Arguments:
+            show        Show the current state of the modified IgnorePkg line.
+            +<package>  Add package to IgnorePkg.
+            -<package>  Remove package from IgnorePkg.
+
     \e[1m--sysinfo\e[0m
         Display system information.
 
@@ -134,6 +142,8 @@ while getopts ":hcui:r:x:-:" opt; do
                 clean)      "$SCRIPTS_PATH"/clean
                             exit;;
                 upgrade)    systemd-inhibit "$SCRIPTS_PATH"/upgrade "${@:2}"
+                            exit;;
+                ignorepkg)  "$SCRIPTS_PATH"/ignorepkg "${@:2}"
                             exit;;
                 installpkg) systemd-inhibit "$SCRIPTS_PATH"/installpkg "${@:2}"
                             exit;;

@@ -1,0 +1,57 @@
+#!/bin/bash
+#===============================================================================
+# A little bash script to make ignoring packages easier :)
+# Copyright (C) 2024-2026 kvastlund.
+#
+# This file is part of Janitor.
+#
+# Janitor is free software: you can redistribute it and/or modify it under the
+# terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
+#
+# Janitor is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+# A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# Janitor. If not, see <https://www.gnu.org/licenses/>.
+#===============================================================================
+
+trap 'echo -e "\e[0m"; exit' INT
+
+#===============================================================================
+
+conf_path=$(pacman -v 2> /dev/null | grep 'Conf File' | cut -d ' ' -f 4)
+prefix="$(grep -E '^#?IgnorePkg' "$conf_path" | cut -d '=' -f 1)="
+pkgs=$(grep -E '^#?IgnorePkg' "$conf_path" | cut -d '=' -f 2)
+pkgs_original=$pkgs
+
+for arg in "${@:1}"; do
+    if [[ $arg = 'show' ]]; then
+        echo "$prefix$pkgs"
+    elif [[ $arg =~ ^\+ ]]; then
+        pkgs="$pkgs ${arg:1}"
+    elif [[ $arg =~ ^- ]]; then
+        pkgs=${pkgs//" ${arg:1}"/}
+    fi
+done
+
+if [[ $pkgs != "$pkgs_original" ]]; then
+    while true; do
+        echo -ne "\e[1m"
+        read -p "Save to $conf_path? [y/N] " -n 1 -r
+        echo -ne "\e[0m"
+
+        [[ $REPLY == "" ]] && break
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            sudo sed -i "s/$prefix$pkgs_original/$prefix$pkgs/" "$conf_path"
+            break
+        elif [[ $REPLY =~ ^[Nn]$ ]]; then
+            break
+        fi
+    done
+fi
+
+#===============================================================================
